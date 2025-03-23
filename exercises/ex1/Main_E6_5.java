@@ -1,7 +1,9 @@
+package exercises.ex1;
+
 import java.util.Scanner;
 
 //The question defined out class name as Dataset but for GitHub better order I preferred E6_5
-public class E6_5 {
+public class Main_E6_5 {
     static double sum = 0;
     static int count = 0;
     static double min = Double.MAX_VALUE;

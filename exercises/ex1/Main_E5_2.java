@@ -1,5 +1,7 @@
+package exercises.ex1;
+
 import java.util.Scanner;
-public class E5_2 {
+public class Main_E5_2 {
     public static void main(String[] args){
         System.out.print("Please input a number: ");
         Scanner in = new Scanner(System.in);

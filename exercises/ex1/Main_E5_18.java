@@ -1,7 +1,8 @@
+package exercises.ex1;
 
 import java.util.Scanner;
 
-public class E5_18 {
+public class Main_E5_18 {
     public static void main(String[] args) {
         String[] str = new String[3];
         Scanner input = new Scanner(System.in);

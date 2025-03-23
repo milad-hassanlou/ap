@@ -1,5 +1,7 @@
+package exercises.ex1;
+
 import java.util.Scanner;
-public class E5_15 {
+public class Main_E5_15 {
     public static void main(String[] args){
         float tax = 10;
         System.out.print("Please input your salary: ");

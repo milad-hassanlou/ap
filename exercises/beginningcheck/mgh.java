@@ -1,3 +1,5 @@
+package exercises.beginningcheck;
+
 import java.util.Scanner;
 
 public class mgh {

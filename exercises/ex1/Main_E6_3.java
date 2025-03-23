@@ -1,6 +1,8 @@
+package exercises.ex1;
+
 import java.util.Scanner;
 
-public class E6_3 {
+public class Main_E6_3 {
     public static void main(String[] args) {
         System.out.print("Please input a line:");
         Scanner in = new Scanner(System.in);
