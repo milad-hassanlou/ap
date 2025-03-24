@@ -1,4 +1,4 @@
-package exercises.beginningcheck;
+package ap.exercises.beginningcheck;
 
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package exercises.beginningcheck;
+package ap.exercises.beginningcheck;
 
 public class Main {
     public static void main(String[] args) {

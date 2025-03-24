@@ -1,4 +1,4 @@
-package exercises.ex1;
+package ap.exercises.ex1;
 
 import java.util.Scanner;
 public class Main_E5_2 {
