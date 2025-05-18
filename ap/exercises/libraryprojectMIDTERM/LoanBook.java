@@ -38,14 +38,19 @@ public class LoanBook implements Serializable {
         return loanReturnDate;
     }
 
+    public Student getStudent() {
+        return student;
+    }
+
     public void returnBook(Operator getterOperator) {
         this.getterOperator = getterOperator;
         this.loanReturnDate = LocalDate.now();
+        System.out.println("The Book Successfully Returned to Library Book Source.");
     }
 
     @Override
     public String toString() {
-        return '{' + book.toString() + " " + student.toString() + '}';
+        return '{' + book.toString() + " | " + student.toString() + " | " + "Loan Start Date: " + loanStartDate + " " + "Loan End Date: " + loanEndDate + '}';
     }
 
     public boolean isDelayed() {
@@ -56,4 +61,10 @@ public class LoanBook implements Serializable {
         LocalDate todayDate = LocalDate.now();
         return todayDate.getYear() == loanStartDate.getYear();
     }
+
+    public boolean isNotReturned() {
+        return loanReturnDate == null;
+    }
+
+
 }

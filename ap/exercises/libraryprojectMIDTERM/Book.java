@@ -22,9 +22,15 @@ public class Book implements Serializable {
     }
 
     @Override
-    public boolean equals(Object book) {
-        Book b = (Book) book;
-        return (this.title.equals(b.title) && this.author.equals(b.author));
+    public boolean equals(Object obj){
+        if(this==obj){
+            return true;
+        }
+        if(obj==null || obj.getClass() != this.getClass()){
+            return false;
+        }
+        Book book=(Book) obj;
+        return (this.title.equals(book.title) && this.author.equals(book.author));
     }
 }
 

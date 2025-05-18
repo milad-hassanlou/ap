@@ -93,8 +93,8 @@ public class InputManager {
         return infos;
     }
 
-    public Book manageSearchTargetBook() {
-        System.out.println("Please Enter Book Information To be Searched: ");
+    public Book searchTargetBook() {
+        System.out.println("Please Enter The Target Book Information: ");
         System.out.print("Book Title:");
         String title = scan.nextLine();
         System.out.print("Author Name:");

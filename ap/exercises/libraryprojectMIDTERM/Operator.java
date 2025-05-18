@@ -26,4 +26,15 @@ public class Operator extends Person implements Serializable {
         return this.EMPLOYEE_ID == id;
     }
 
+    public boolean equals(Object b) {
+        if (this == b) {
+            return true;
+        }
+        if (b == null || b.getClass() != this.getClass()) {
+            return false;
+        }
+        Operator operator = (Operator) b;
+        return (this.EMPLOYEE_ID == operator.EMPLOYEE_ID);
+    }
+
 }

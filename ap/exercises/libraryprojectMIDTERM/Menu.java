@@ -1,5 +1,7 @@
 package ap.exercises.libraryprojectMIDTERM;
 
+import java.util.ArrayList;
+
 public class Menu {
     private Library library;
     private InputManager inputManager;
@@ -26,6 +28,7 @@ public class Menu {
                     break;
                 case 2:
                     operatorLogin();
+                    break;
                 case 3:
                     studentLogin();
                     break;
@@ -105,7 +108,9 @@ public class Menu {
             System.out.println("Operator Menu:");
             System.out.println("1-Edit and Complete Personal Information");
             System.out.println("2-Add new Book To Library Book Source");
-            System.out.println("3-Exit");
+            System.out.println("3-Accept Loaning Book Requests");
+            System.out.println("4-Accept Returning Back the Book Requests");
+            System.out.println("5-Exit");
 
             switch (inputManager.scanChoice()) {
                 case 1:
@@ -115,6 +120,20 @@ public class Menu {
                     library.addBook(inputManager.manageBookInput());
                     break;
                 case 3:
+                    library.showLoanBookRequestList();
+                    System.out.println("These Requests Are Waiting For Your Acceptance. Enter the Request Number to Accept it.");
+                    StudentsLoanBookRequest acceptedRequest = library.getRequestObj(inputManager.scanChoice());
+                    library.addLoan(new LoanBook(acceptedRequest.getBook(), acceptedRequest.getStudent(), operator));
+                    library.removeRequest(acceptedRequest);
+                    break;
+                case 4:
+                    library.showReturnBookRequestList();
+                    System.out.println("These Requests Are Waiting For Your Acceptance. Enter the Number to Accept.");
+                    LoanBook targetLoanBook = library.getReturnRequestObj(inputManager.scanChoice());
+                    targetLoanBook.returnBook(operator);
+                    library.removeReturnBookRequest(targetLoanBook);
+                    break;
+                case 5:
                     SaveLoadCreateLibrary.saveToFile(library);
                     System.exit(4);
                 default:
@@ -163,13 +182,28 @@ public class Menu {
         while (true) {
             System.out.println("Student Menu:");
             System.out.println("1-Search");
-            System.out.println("2-Exit");
+            System.out.println("2-Book Loaning Request");
+            System.out.println("3-My Loaning Books Which Haven't Returned Back");
+            System.out.println("4-Return Back Lending Book Request");
+            System.out.println("5-Exit");
 
             switch (inputManager.scanChoice()) {
                 case 1:
-                    System.out.println(library.searchBook(inputManager.manageSearchTargetBook()));
+                    System.out.println(library.searchBook(inputManager.searchTargetBook()));
                     break;
                 case 2:
+                    Book targetBook = library.findBook(inputManager.searchTargetBook());
+                    if (targetBook != null && !library.isBookOnLoan(targetBook)) {
+                        library.addLoanRequest(new StudentsLoanBookRequest(student, targetBook));
+                    }
+                    break;
+                case 3:
+                    library.unreturnedBooks(student);
+                    break;
+                case 4:
+                    library.registerReturnRequest(student, inputManager.searchTargetBook());
+                    break;
+                case 5:
                     SaveLoadCreateLibrary.saveToFile(library);
                     System.exit(6);
                     break;

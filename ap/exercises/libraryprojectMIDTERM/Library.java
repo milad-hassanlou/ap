@@ -10,6 +10,8 @@ public class Library implements Serializable {
     private ArrayList<Student> studentsList = new ArrayList<>();
     private ArrayList<Operator> operatorsList = new ArrayList<>();
     private ArrayList<LoanBook> loansList = new ArrayList<>();
+    private ArrayList<StudentsLoanBookRequest> loanBookRequestsList = new ArrayList<>();
+    private ArrayList<LoanBook> returnRequestsList = new ArrayList<>();
 
 
     //Add a person or Book
@@ -39,7 +41,12 @@ public class Library implements Serializable {
 
     public void addLoan(LoanBook loan) {
         loansList.add(loan);
-        System.out.println("The Book loaned Successfully.");
+        System.out.println("The Book Loaned Successfully.");
+    }
+
+    public void addLoanRequest(StudentsLoanBookRequest request) {
+        loanBookRequestsList.add(request);
+        System.out.println("The Book Loaning Request Registered. Waiting For Operators Acceptance.");
     }
 
     //Get Details
@@ -71,11 +78,11 @@ public class Library implements Serializable {
         int getCounter = 0;
         for (Operator operator : operatorsList) {
             for (LoanBook lBook : loansList) {
-                if (operator == lBook.getGiverOperator()) {
+                if (operator.equals(lBook.getGiverOperator())) {
                     giveCounter++;
                 }
 
-                if (operator == lBook.getGetterOperator()) {
+                if (operator.equals(lBook.getGetterOperator())) {
                     getCounter++;
                 }
             }
@@ -97,7 +104,7 @@ public class Library implements Serializable {
         int counter = 0;
         for (Book book : booksList) {
             for (LoanBook loanBook : loansList) {
-                if (loanBook.getBook() == book && loanBook.isInThisYear()) {
+                if (loanBook.getBook().equals(book) && loanBook.isInThisYear()) {
                     counter++;
                 }
             }
@@ -154,7 +161,7 @@ public class Library implements Serializable {
 
     public boolean isOnLoan(Book book) {
         for (LoanBook lBook : loansList) {
-            if (lBook.getBook() == book && lBook.getLoanReturnDate() == null) {
+            if (lBook.getBook().equals(book) && lBook.getLoanReturnDate() == null) {
                 return true;
             }
         }
@@ -176,4 +183,78 @@ public class Library implements Serializable {
         }
         return "Such a Book Not Found!";
     }
+
+    public Book findBook(Book targetBook) {
+        for (Book book : booksList) {
+            if (book.equals(targetBook)) {
+                return book;
+            }
+        }
+        System.out.println("There's Not Such a Book!");
+        return null;
+    }
+
+    public boolean isBookOnLoan(Book targetBook) {
+        for (LoanBook lBook : loansList) {
+            if (lBook.getBook().equals(targetBook) && lBook.isNotReturned()) {
+                System.out.println("The Book is On Loan.");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void showLoanBookRequestList() {
+        int count = 1;
+        for (StudentsLoanBookRequest request : loanBookRequestsList) {
+            System.out.println(count + "-" + request.toString());
+            count++;
+        }
+    }
+
+    public StudentsLoanBookRequest getRequestObj(int index) {
+        return loanBookRequestsList.get(index - 1);
+    }
+
+    public void removeRequest(StudentsLoanBookRequest request) {
+        loanBookRequestsList.remove(request);
+    }
+
+    public void unreturnedBooks(Student student) {
+        int counter = 1;
+        for (LoanBook lBook : loansList) {
+            if (lBook.getStudent().equals(student) && lBook.isNotReturned()) {
+                System.out.println(counter + "-" + lBook.toString());
+                counter++;
+            }
+        }
+    }
+
+    public void registerReturnRequest(Student student, Book book) {
+        for (LoanBook lBook : loansList) {
+            if (lBook.getStudent().equals(student) && lBook.getBook().equals(book) && lBook.isNotReturned()) {
+                returnRequestsList.add(lBook);
+                System.out.println("The Book Returning Request Registered in. Waiting For Operator Acceptance.");
+                return;
+            }
+        }
+        System.out.println("There's Not Such A Book Loaned For You");
+    }
+
+    public void showReturnBookRequestList() {
+        int count = 1;
+        for (LoanBook lBook : returnRequestsList) {
+            System.out.println(count + "-" + lBook.toString());
+            count++;
+        }
+    }
+
+    public LoanBook getReturnRequestObj(int index) {
+        return returnRequestsList.get(index - 1);
+    }
+
+    public void removeReturnBookRequest(LoanBook lBook) {
+        returnRequestsList.remove(lBook);
+    }
 }
+

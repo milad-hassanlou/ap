@@ -22,4 +22,15 @@ public class Student extends Person implements Serializable {
     public boolean isIdSimilar(int id) {
         return this.STUDENT_Id == id;
     }
+
+    public boolean equals(Object b) {
+        if (this == b) {
+            return true;
+        }
+        if (b == null || b.getClass() != this.getClass()) {
+            return false;
+        }
+        Student operator = (Student) b;
+        return (this.STUDENT_Id == operator.STUDENT_Id);
+    }
 }
