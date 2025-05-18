@@ -30,7 +30,7 @@ public class Book implements Serializable {
             return false;
         }
         Book book=(Book) obj;
-        return (this.title.equals(book.title) && this.author.equals(book.author));
+        return (this.title.equalsIgnoreCase(book.title) && this.author.equalsIgnoreCase(book.author));
     }
 }
 

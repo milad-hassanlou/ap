@@ -47,7 +47,7 @@ public class InputManager {
 
 
     public int getStudentID() {
-        System.out.print("Please Input Your Student ID Code:");
+        System.out.print("Please Input Student ID Code:");
         int id = scan.nextInt();
         scan.nextLine();
         return id;

@@ -1,8 +1,9 @@
 package ap.exercises.libraryprojectMIDTERM;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class StudentsLoanBookRequest {
+public class StudentsLoanBookRequest implements Serializable {
     private Student student;
     private Book book;
     private LocalDate requestDate;

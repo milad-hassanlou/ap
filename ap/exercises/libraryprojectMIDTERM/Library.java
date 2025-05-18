@@ -204,12 +204,15 @@ public class Library implements Serializable {
         return false;
     }
 
-    public void showLoanBookRequestList() {
+    public boolean showLoanBookRequestList() {
+        boolean isAnythingPrinted = false;
         int count = 1;
         for (StudentsLoanBookRequest request : loanBookRequestsList) {
             System.out.println(count + "-" + request.toString());
+            isAnythingPrinted = true;
             count++;
         }
+        return false;
     }
 
     public StudentsLoanBookRequest getRequestObj(int index) {
@@ -221,12 +224,17 @@ public class Library implements Serializable {
     }
 
     public void unreturnedBooks(Student student) {
+        boolean isAnythingPrinted = false;
         int counter = 1;
         for (LoanBook lBook : loansList) {
             if (lBook.getStudent().equals(student) && lBook.isNotReturned()) {
                 System.out.println(counter + "-" + lBook.toString());
+                isAnythingPrinted = true;
                 counter++;
             }
+        }
+        if (!isAnythingPrinted) {
+            System.out.println("You Have No Unreturned Book.");
         }
     }
 
@@ -238,15 +246,18 @@ public class Library implements Serializable {
                 return;
             }
         }
-        System.out.println("There's Not Such A Book Loaned For You");
+        System.out.println("There's Not Such A Book Loaned For You.");
     }
 
-    public void showReturnBookRequestList() {
+    public boolean showReturnBookRequestList() {
+        boolean isAnythingPrinted = false;
         int count = 1;
         for (LoanBook lBook : returnRequestsList) {
             System.out.println(count + "-" + lBook.toString());
+            isAnythingPrinted = true;
             count++;
         }
+        return isAnythingPrinted;
     }
 
     public LoanBook getReturnRequestObj(int index) {
@@ -255,6 +266,43 @@ public class Library implements Serializable {
 
     public void removeReturnBookRequest(LoanBook lBook) {
         returnRequestsList.remove(lBook);
+    }
+
+    public void showLoaningHistory(Student student) {
+        boolean isAnythingPrinted = false;
+        System.out.println("Your Loaning Book History:");
+        int count = 1;
+        for (LoanBook lBook : loansList) {
+            if (lBook.getStudent().equals(student)) {
+                System.out.println(count + "-" + lBook.toString());
+                isAnythingPrinted = true;
+                count++;
+            }
+        }
+        if(!isAnythingPrinted){
+            System.out.println("No Books Found.");
+        }
+    }
+
+    public void showOperatorHistory(Operator operator) {
+        System.out.println("Lending Book History:\n");
+        int count = 0;
+        for (LoanBook lBook : loansList) {
+            if (lBook.getGiverOperator().equals(operator)) {
+                System.out.println(count + "-" + lBook);
+                count++;
+            }
+        }
+
+        System.out.println("Receiving Book History:\n");
+        count = 0;
+        for (LoanBook lBook : loansList) {
+            if (lBook.getGetterOperator() == operator) {
+                System.out.println(count + "-" + lBook);
+                count++;
+            }
+        }
+
     }
 }
 

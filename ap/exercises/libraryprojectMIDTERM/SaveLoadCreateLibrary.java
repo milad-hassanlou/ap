@@ -2,7 +2,7 @@ package ap.exercises.libraryprojectMIDTERM;
 
 import java.io.*;
 
-public class SaveLoadCreateLibrary {
+public class SaveLoadCreateLibrary implements Serializable {
     public static void saveToFile(Library lib) {
         try {
             FileOutputStream outFile = new FileOutputStream("DataBaseOfLibrary.bin");
