@@ -13,7 +13,7 @@ public class ImageDownloader {
     /**
      * Downloads an image from a URL and saves it to the specified file path
      *
-     * @param imageUrl URL of the image to download
+     * @param imageUrl   URL of the image to download
      * @param outputPath Path where to save the image (including filename and extension)
      * @throws IOException If there's an error during download or file saving
      */
@@ -33,9 +33,10 @@ public class ImageDownloader {
                 // Create parent directories if they don't exist
                 Files.createDirectories(output.getParent());
                 // Download and save the file
+            } catch (Exception e) {
             }
-            catch (Exception e){}
             Files.copy(in, output, StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("Image Downloaded Successfully " + " -> " + " Path: " + outputPath + " URL: " + url);
         }
     }
 
