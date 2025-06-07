@@ -1,4 +1,4 @@
-package ap.exercises.ex6;
+package ap.exercises.ex6.scraper;
 
 import ap.exercises.ex6.scraper.fetcher.HtmlFetcher;
 import ap.exercises.ex6.scraper.parser.HtmlParser;
@@ -53,6 +53,7 @@ public class Main_EX6_SC2 {
             String pathUnit2 = url.substring(domainPathStartPoint);
             savePath += pathUnit2;
         }
+        savePath += "/html";
 
         return savePath;
     }

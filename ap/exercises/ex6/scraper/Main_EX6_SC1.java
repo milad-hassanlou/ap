@@ -1,4 +1,6 @@
-package ap.exercises.ex6;
+package ap.exercises.ex6.scraper;
+
+import ap.exercises.ex6.scraper.Conf;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,13 +12,15 @@ import java.util.stream.Collectors;
 
 public class Main_EX6_SC1 {
     // It's Better to Determine FilePath in Conf Class (Due to Commit Pushing It's Here)
-    private final String IMAGES_FILE_PATH = "E:/Codings Related Files/Rah/ImagesUrls/ImagesUrls.txt";
+    private String imagesFilePath = Conf.IMAGES_FILE_PATH;
 
     public void fillImagesFile() {
+
         ArrayList<String> filePaths = new ArrayList<>();
         for (int i = 1; i <= 224; i++) {
-            filePaths.add("E:/Codings Related Files/Rah/fetched_html" + i + ".html");
+            filePaths.add("fetched_html/" + i + ".html");
         }
+
         Set<String> imagesAddress = filePaths.stream()
                 .map(s -> {
                     try {
@@ -34,7 +38,7 @@ public class Main_EX6_SC1 {
                 .collect(Collectors.toSet());
 
         try {
-            PrintWriter out = new PrintWriter(IMAGES_FILE_PATH);
+            PrintWriter out = new PrintWriter(imagesFilePath);
             for (String img : imagesAddress) {
                 out.println(img);
             }
@@ -52,7 +56,7 @@ public class Main_EX6_SC1 {
             try {
                 int srcLength = "src=\"".length();
                 int endIndex = htmlLine.indexOf("\"", startIndex + srcLength + 1);
-                imageUrl = htmlLine.substring(startIndex + srcLength + 1, endIndex);
+                imageUrl = htmlLine.substring(startIndex + srcLength , endIndex);
             } catch (Exception e) {
 
             }
