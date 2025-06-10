@@ -1,8 +1,7 @@
 package ap.exercises.libraryprojectMIDTERM;
 
-import java.io.Serializable;
 
-public class Person implements Serializable {
+public class Person implements TabSplitAble {
     private String firstName;
     private String lastName;
 
@@ -11,12 +10,25 @@ public class Person implements Serializable {
         this.lastName = lastName;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @Override
+    public String toTabSplit() {
+        return firstName + "\t" + lastName;
     }
 
     @Override

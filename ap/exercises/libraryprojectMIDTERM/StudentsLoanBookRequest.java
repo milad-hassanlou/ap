@@ -1,9 +1,8 @@
 package ap.exercises.libraryprojectMIDTERM;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
-public class StudentsLoanBookRequest implements Serializable {
+public class StudentsLoanBookRequest implements TabSplitAble {
     private Student student;
     private Book book;
     private LocalDate requestDate;
@@ -14,6 +13,16 @@ public class StudentsLoanBookRequest implements Serializable {
         this.requestDate = LocalDate.now();
     }
 
+    public StudentsLoanBookRequest(Student student, Book book, String requestDate) {
+        this.student = student;
+        this.book = book;
+        this.requestDate = LocalDate.parse(requestDate);
+    }
+
+    public LocalDate getRequestDate() {
+        return requestDate;
+    }
+
     public Book getBook() {
         return book;
     }
@@ -22,9 +31,13 @@ public class StudentsLoanBookRequest implements Serializable {
         return student;
     }
 
-
     @Override
     public String toString() {
         return "{" + student.toString() + " | " + book.toString() + "}";
+    }
+
+    @Override
+    public String toTabSplit() {
+        return student.toTabSplit() + "\t" + book.toTabSplit() + "\t" + requestDate.toString();
     }
 }

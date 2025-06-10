@@ -1,14 +1,28 @@
 package ap.exercises.libraryprojectMIDTERM;
 
-import java.io.Serializable;
 
-public class Operator extends Person implements Serializable {
+public class Operator extends Person implements TabSplitAble {
     private final int EMPLOYEE_ID;
     private String educationalLevel;
 
     public Operator(int previousOperators, String firstName, String lastName) {
         super(firstName, lastName);
         EMPLOYEE_ID = 403999001 + previousOperators;
+    }
+
+    public Operator(int employeeId, String firstName, String lastName,int consVersionAlways2) {
+        super(firstName, lastName);
+        this.EMPLOYEE_ID = employeeId;
+    }
+
+    public int getEMPLOYEE_ID() {
+        return EMPLOYEE_ID;
+    }
+
+
+    @Override
+    public String toTabSplit() {
+        return EMPLOYEE_ID + "\t" + super.toTabSplit();
     }
 
     public int getEmployeeId() {

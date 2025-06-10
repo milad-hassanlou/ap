@@ -1,9 +1,8 @@
 package ap.exercises.libraryprojectMIDTERM;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Library implements Serializable {
+public class Library {
     private String libraryName;
     private LibraryManager manager;
     private ArrayList<Book> booksList = new ArrayList<>();
@@ -17,6 +16,17 @@ public class Library implements Serializable {
     //Add a person or Book
     public Library(String name) {
         this.libraryName = name;
+    }
+
+    public Library(String libraryName, LibraryManager manager, ArrayList<Book> booksList, ArrayList<Student> studentsList, ArrayList<Operator> operatorsList, ArrayList<LoanBook> loansList, ArrayList<StudentsLoanBookRequest> loanBookRequestsList, ArrayList<LoanBook> returnRequestsList) {
+        this.libraryName = libraryName;
+        this.manager = manager;
+        this.booksList = booksList;
+        this.studentsList = studentsList;
+        this.operatorsList = operatorsList;
+        this.loansList = loansList;
+        this.loanBookRequestsList = loanBookRequestsList;
+        this.returnRequestsList = returnRequestsList;
     }
 
     public void addManager(LibraryManager manager) {
@@ -58,6 +68,37 @@ public class Library implements Serializable {
         return studentsList.size();
     }
 
+    public String getLibraryName() {
+        return libraryName;
+    }
+
+    public LibraryManager getManager() {
+        return manager;
+    }
+
+    public ArrayList<Book> getBooksList() {
+        return booksList;
+    }
+
+    public ArrayList<Student> getStudentsList() {
+        return studentsList;
+    }
+
+    public ArrayList<Operator> getOperatorsList() {
+        return operatorsList;
+    }
+
+    public ArrayList<LoanBook> getLoansList() {
+        return loansList;
+    }
+
+    public ArrayList<StudentsLoanBookRequest> getLoanBookRequestsList() {
+        return loanBookRequestsList;
+    }
+
+    public ArrayList<LoanBook> getReturnRequestsList() {
+        return returnRequestsList;
+    }
 
     //Major Actions
     public ArrayList<LoanBook> listOfDelayedBooks() {
@@ -212,7 +253,7 @@ public class Library implements Serializable {
             isAnythingPrinted = true;
             count++;
         }
-        return false;
+        return isAnythingPrinted;
     }
 
     public StudentsLoanBookRequest getRequestObj(int index) {

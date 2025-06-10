@@ -101,4 +101,30 @@ public class InputManager {
         String author = scan.nextLine();
         return new Book(title, author, 0, 0);
     }
+
+    public String chooseStorageType() {
+        System.out.println("There is No Saved Information.");
+        System.out.println("Creating New Library.");
+        System.out.println("First Choose Storage Type: ");
+        while (true) {
+            System.out.println("1-Tab-Split ");
+            System.out.println("2-Json");
+            System.out.println("3-Sqlite");
+            System.out.println("4-Exit");
+            int choose = scan.nextInt();
+            scan.nextLine();
+            switch (choose){
+                case 1:
+                    return "tabsplit";
+                case 2:
+                    return "json";
+                case 3:
+                    return "sqlite";
+                case 4:
+                    System.exit(7);
+                default:
+                    System.out.println("Invalid Choice. Try Again.");
+            }
+        }
+    }
 }

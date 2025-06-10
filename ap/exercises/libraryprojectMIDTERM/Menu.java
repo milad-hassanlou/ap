@@ -1,13 +1,18 @@
 package ap.exercises.libraryprojectMIDTERM;
 
 
+import ap.exercises.libraryprojectMIDTERM.persistence.HandleStorageManager;
+import ap.exercises.libraryprojectMIDTERM.persistence.ParentStorageManager;
+
 public class Menu {
     private Library library;
     private InputManager inputManager;
+    private ParentStorageManager parentStorageManager;
 
-    public Menu(Library library) {
+    public Menu(Library library,InputManager inputManager, ParentStorageManager parentStorageManager) {
         this.library = library;
-        inputManager = new InputManager();
+        this.inputManager = inputManager;
+        this.parentStorageManager = parentStorageManager;
     }
 
     public void showMenu() {
@@ -67,7 +72,8 @@ public class Menu {
                     library.tenMostLending();
                     break;
                 case 5:
-                    SaveLoadCreateLibrary.saveToFile(library);
+                    //SaveLoadCreateLibrary.saveToFile(library);
+                    parentStorageManager.saveLibrary(library);
                     System.exit(2);
                     break;
                 default:
@@ -93,7 +99,8 @@ public class Menu {
                     operatorLogin();
                     break;
                 case 2:
-                    SaveLoadCreateLibrary.saveToFile(library);
+                    //SaveLoadCreateLibrary.saveToFile(library);
+                    parentStorageManager.saveLibrary(library);
                     System.exit(3);
                     break;
                 default:
@@ -152,7 +159,8 @@ public class Menu {
                     }
                     break;
                 case 7:
-                    SaveLoadCreateLibrary.saveToFile(library);
+//                    SaveLoadCreateLibrary.saveToFile(library);
+                    parentStorageManager.saveLibrary(library);
                     System.exit(4);
                 default:
                     System.out.println("Invalid choice! Try Again...");
@@ -186,7 +194,8 @@ public class Menu {
                 studentMenu(newStudent);
                 break;
             case 3:
-                SaveLoadCreateLibrary.saveToFile(library);
+//                SaveLoadCreateLibrary.saveToFile(library);
+                parentStorageManager.saveLibrary(library);
                 System.exit(5);
                 break;
             default:
@@ -226,7 +235,8 @@ public class Menu {
                     library.showLoaningHistory(student);
                     break;
                 case 6:
-                    SaveLoadCreateLibrary.saveToFile(library);
+//                    SaveLoadCreateLibrary.saveToFile(library);
+                    parentStorageManager.saveLibrary(library);
                     System.exit(6);
                     break;
                 default:
