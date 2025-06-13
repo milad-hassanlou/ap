@@ -16,7 +16,10 @@ public class Main {
         Main_EX6_SC2 download = new Main_EX6_SC2(domainAddress,specialSavePath);
         download.startUrlParser();
 
-        Main_EX6_SC3 imageAndSong = new Main_EX6_SC3(specialSavePath);
-        imageAndSong.startDownloadImagesAndMp3();
+        Main_EX8 downloadImageAndSong = new Main_EX8(specialSavePath);
+        downloadImageAndSong.startDownloadingImagesAndMp3();
+
+//        Main_EX6_SC3 imageAndSong = new Main_EX6_SC3(specialSavePath);
+//        imageAndSong.startDownloadImagesAndMp3();
     }
 }

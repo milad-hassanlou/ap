@@ -10,4 +10,6 @@ public class Conf {
 
     public static final String SAVE_DIRECTORY_SPECIAL_URL = "special_url";
 
+    public static final String CONFIG_FILE_PATH = "config.txt";
+
 }
