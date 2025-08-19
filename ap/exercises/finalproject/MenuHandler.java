@@ -93,9 +93,9 @@ public class MenuHandler {
             System.out.println("\n=== Student Dashboard ===");
             System.out.println("1. View My Information");
             System.out.println("2. Edit My Information");
-            System.out.println("3. Borrow a Book");
-            System.out.println("4. Return a Book");
-            System.out.println("5. View Available Books");
+            System.out.println("3. View Available Books");
+            System.out.println("4. Search A Book");
+            System.out.println("5. Submit A Book Returning Request");
             System.out.println("6. Logout");
             System.out.print("Please enter your choice: ");
 
@@ -107,16 +107,16 @@ public class MenuHandler {
                     System.out.println(currentUser);
                     break;
                 case 2:
-                    librarySystem.editStudentInformation(currentUser);
+                    handleStudentInfoEditing();
                     break;
                 case 3:
-                    librarySystem.borrowBook(currentUser);
+                    librarySystem.displayAvailableBooks();
                     break;
                 case 4:
-                    librarySystem.returnBook(currentUser);
+                    handleSearchingBook();
                     break;
                 case 5:
-                    librarySystem.displayAvailableBooks();
+                    handleBookReturningRequest();
                     break;
                 case 6:
                     currentUser = null;
@@ -126,6 +126,20 @@ public class MenuHandler {
                     System.out.println("Invalid option! Please try again.");
             }
         }
+    }
+
+    private void handleStudentInfoEditing(){
+        System.out.println("Not implemented.");
+        librarySystem.editStudentInformation(currentUser);
+    }
+
+    private void handleSearchingBook(){
+        System.out.println("Not implemented.");
+    }
+
+    private void handleBookReturningRequest(){
+        System.out.println("Not implemented.");
+        librarySystem.requesOfReturningBook(currentUser);
     }
 
     private int getIntInput(int min, int max) {

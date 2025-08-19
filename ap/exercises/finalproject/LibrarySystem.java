@@ -30,7 +30,7 @@ public class LibrarySystem {
         System.out.println("Not implemented.");
     }
 
-    public void returnBook(Student student) {
+    public void requesOfReturningBook(Student student) {
         System.out.println("Not implemented.");
     }
 
