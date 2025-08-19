@@ -2,6 +2,7 @@ package ap.exercises.finalproject;
 
 
 // MenuHandler.java
+
 import java.util.Scanner;
 
 public class MenuHandler {
@@ -24,7 +25,7 @@ public class MenuHandler {
             System.out.println("4. Exit");
             System.out.print("Please enter your choice: ");
 
-            int choice = getIntInput(1, 5);
+            int choice = getIntInput(1, 4);
 
             switch (choice) {
                 case 1:
@@ -113,7 +114,7 @@ public class MenuHandler {
                     librarySystem.displayAvailableBooks();
                     break;
                 case 4:
-                    handleSearchingBook();
+                    handleBookSearching();
                     break;
                 case 5:
                     handleBookReturningRequest();
@@ -128,18 +129,52 @@ public class MenuHandler {
         }
     }
 
-    private void handleStudentInfoEditing(){
-        System.out.println("Not implemented.");
-        librarySystem.editStudentInformation(currentUser);
+    private void handleStudentInfoEditing() {
+        System.out.println("\n--- Student Information Editing ---");
+        System.out.println("Please fill in the fields below:");
+
+        System.out.print("New Username: ");
+        String newUsername = scanner.nextLine();
+
+        System.out.print("Password: ");
+        String newPassword = scanner.nextLine();
+
+        librarySystem.editStudentInformation(currentUser, newUsername, newPassword);
     }
 
-    private void handleSearchingBook(){
-        System.out.println("Not implemented.");
+    private void handleBookSearching() {
+        System.out.println("\n=== Searching a Book ===");
+        System.out.println("Please fill in the fields below: (you can pass a filed by Enter key if it's not necessary)");
+
+        System.out.print("Book Title:");
+        String title = scanner.nextLine().trim();
+        if (title.isEmpty()) {
+            title = null;
+        }
+
+        System.out.print("Author:");
+        String author = scanner.nextLine().trim();
+        if (author.isEmpty()) {
+            author = null;
+        }
+
+        System.out.print("Publish Year:");
+        String publishYear = scanner.nextLine().trim();
+        if (publishYear.isEmpty()) {
+            publishYear = null;
+        }
+
+        if(title==null||author==null||publishYear==null){
+            System.out.println("No information declared. Searching Failed!");
+        }else{
+            librarySystem.searchBook(title,author,publishYear);
+        }
+
     }
 
-    private void handleBookReturningRequest(){
+    private void handleBookReturningRequest() {
         System.out.println("Not implemented.");
-        librarySystem.requesOfReturningBook(currentUser);
+        librarySystem.requestOfReturningBook(currentUser);
     }
 
     private int getIntInput(int min, int max) {

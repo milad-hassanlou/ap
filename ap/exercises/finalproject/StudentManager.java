@@ -28,6 +28,23 @@ public class StudentManager {
                 .orElse(null);
     }
 
+    public void editStudentInformation(Student student, String username, String password) {
+        if (isUsernameTaken(username)) {
+            System.out.println("This username already exists. Please choose a different username.");
+            return;
+        }
+        for (Student st : students) {
+            if (st == student) {
+                st.setUsername(username);
+                st.setPassword(password);
+                System.out.println("Username and Password Successfully Changed.");
+                break;
+            } else {
+                System.out.println("There is a problem with changing information.");
+            }
+        }
+    }
+
     public void displayStudents() {
         System.out.println("\n--- List of Registered Students ---");
 
