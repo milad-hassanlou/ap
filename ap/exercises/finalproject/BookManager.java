@@ -1,7 +1,5 @@
 package ap.exercises.finalproject;
 
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,5 +37,15 @@ public class BookManager {
         books.stream()
                 .filter(b -> b.getTitle().equalsIgnoreCase(title))
                 .forEach(b -> System.out.println(b));
+    }
+
+    public int getBookCount() {
+        return books.size();
+    }
+
+    public int onLoanBookCount() {
+        return (int) books.stream()
+                .filter(b -> !(loanBookManager.isABookAvailable(b)))
+                .count();
     }
 }

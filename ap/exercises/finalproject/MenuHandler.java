@@ -205,11 +205,12 @@ public class MenuHandler {
             System.out.println("\n--- Guest User Menu ---");
             System.out.println("1. View Registered Student Count");
             System.out.println("2. Search By Book's Title");
-            System.out.println("3. Exit");
+            System.out.println("3. Show Library Statistics ");
+            System.out.println("4. Exit");
             System.out.print("Please enter your choice: ");
 
 
-            int choice = getIntInput(1, 3);
+            int choice = getIntInput(1, 4);
 
             switch (choice) {
                 case 1:
@@ -219,6 +220,9 @@ public class MenuHandler {
                     handleBookSearchingByTitle();
                     break;
                 case 3:
+                    displayLibraryStatistics();
+                    break;
+                case 4:
                     System.out.println("Exiting system. Goodbye!");
                     return;
                 default:
@@ -232,7 +236,7 @@ public class MenuHandler {
         System.out.println("\nTotal registered students: " + studentCount);
     }
 
-    private void handleBookSearchingByTitle(){
+    private void handleBookSearchingByTitle() {
         System.out.println("\n--- Searching By Title ---");
 
         System.out.print("Book Title: ");
@@ -240,6 +244,24 @@ public class MenuHandler {
 
         librarySystem.searchBookByTitleForGuest(title);
     }
+
+    private void displayLibraryStatistics() {
+        System.out.println("\n--- Library General Statistics ---");
+
+        System.out.print("Registered Students Count: ");
+        System.out.println(librarySystem.getStudentCount());
+
+        System.out.print("Library All Books Count: ");
+        System.out.println(librarySystem.getBookCount());
+
+        System.out.print("Book Loaning Histories Count: ");
+        System.out.println(librarySystem.getLoanHistoryCount());
+
+        System.out.print("On Loan Books Count: ");
+        System.out.println(librarySystem.onLoanBookCount());
+
+    }
+
 
     private int getIntInput(int min, int max) {
         while (true) {

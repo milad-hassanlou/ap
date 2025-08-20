@@ -15,6 +15,11 @@ public class LoanBookManager {
                 .filter(l -> l.getBook() == targetBook)
                 .filter(l -> !(l.isReturned()))
                 .count();
-        return count ==0;
+        return count == 0;
     }
+
+    public int getLoanHistoryCount() {
+        return loans.size();
+    }
+
 }

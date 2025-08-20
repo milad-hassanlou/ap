@@ -21,6 +21,18 @@ public class LibrarySystem {
         return this.studentManager.getStudentCount();
     }
 
+    public int getBookCount() {
+        return this.bookManager.getBookCount();
+    }
+
+    public int getLoanHistoryCount() {
+        return this.loanBookManager.getLoanHistoryCount();
+    }
+
+    public int onLoanBookCount() {
+        return this.bookManager.onLoanBookCount();
+    }
+
     public void registerStudent(String name, String studentId, String username, String password) {
         studentManager.registerStudent(name, studentId, username, password);
     }
@@ -29,7 +41,7 @@ public class LibrarySystem {
         return studentManager.authenticateStudent(username, password);
     }
 
-    public void editStudentInformation(Student student,String username,String password) {
+    public void editStudentInformation(Student student, String username, String password) {
         studentManager.editStudentInformation(student,username,password);
     }
 
