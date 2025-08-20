@@ -160,10 +160,10 @@ public class MenuHandler {
             publishYear = null;
         }
 
-        if(title==null||author==null||publishYear==null){
+        if (title == null || author == null || publishYear == null) {
             System.out.println("No information declared. Searching Failed!");
-        }else{
-            librarySystem.searchBook(title,author,publishYear);
+        } else {
+            librarySystem.searchBook(title, author, publishYear);
         }
 
     }
@@ -177,10 +177,10 @@ public class MenuHandler {
 
         System.out.print("Loan Start Date: (Year-Mon-Day)");
         String startPoint = scanner.nextLine();
-        LocalDate startDate=null;
+        LocalDate startDate = null;
         try {
-             startDate = LocalDate.parse(startPoint);
-        }catch(Exception e){
+            startDate = LocalDate.parse(startPoint);
+        } catch (Exception e) {
             System.out.println("Invalid Input For Start Date. " + "Error Message: " + e.getMessage());
         }
 
@@ -189,32 +189,36 @@ public class MenuHandler {
         LocalDate endDate = null;
         try {
             endDate = LocalDate.parse(endPoint);
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Invalid Input For End Date" + "Error Message: " + e.getMessage());
         }
 
-        if(endDate.isAfter(LocalDate.now()) && startDate.isAfter(LocalDate.now()) && endDate.isAfter(startDate)) {
+        if (endDate.isAfter(LocalDate.now()) && startDate.isAfter(LocalDate.now()) && endDate.isAfter(startDate)) {
             librarySystem.loanBookRequest(bookId, currentUser, startDate, endDate);
-        }else{
+        } else {
             System.out.println("Entered dates are not valid!");
         }
     }
 
-    private void displayGuestMenu(){
-        while(true) {
+    private void displayGuestMenu() {
+        while (true) {
             System.out.println("\n--- Guest User Menu ---");
             System.out.println("1. View Registered Student Count");
-            System.out.println("2. Exit");
+            System.out.println("2. Search By Book's Title");
+            System.out.println("3. Exit");
             System.out.print("Please enter your choice: ");
 
 
-            int choice = getIntInput(1, 2);
+            int choice = getIntInput(1, 3);
 
             switch (choice) {
                 case 1:
                     displayStudentCount();
                     break;
                 case 2:
+                    handleBookSearchingByTitle();
+                    break;
+                case 3:
                     System.out.println("Exiting system. Goodbye!");
                     return;
                 default:
@@ -226,6 +230,15 @@ public class MenuHandler {
     private void displayStudentCount() {
         int studentCount = librarySystem.getStudentCount();
         System.out.println("\nTotal registered students: " + studentCount);
+    }
+
+    private void handleBookSearchingByTitle(){
+        System.out.println("\n--- Searching By Title ---");
+
+        System.out.print("Book Title: ");
+        String title = scanner.nextLine();
+
+        librarySystem.searchBookByTitleForGuest(title);
     }
 
     private int getIntInput(int min, int max) {

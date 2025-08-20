@@ -28,11 +28,16 @@ public class BookManager {
                 .forEach(b -> System.out.println(b + "| Available :" + loanBookManager.isABookAvailable(b)));
     }
 
-
     public Book searchBookById(String bookId) {
         return books.stream()
-                .filter(b->b.getBookId().equals(bookId))
+                .filter(b -> b.getBookId().equals(bookId))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public void searchBYTitleForGuest(String title) {
+        books.stream()
+                .filter(b -> b.getTitle().equalsIgnoreCase(title))
+                .forEach(b -> System.out.println(b));
     }
 }
