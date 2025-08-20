@@ -1,11 +1,14 @@
 package ap.exercises.finalproject;
 
+import java.time.LocalDate;
+
 // LibrarySystem.java
 public class LibrarySystem {
     private MenuHandler menuHandler;
     private StudentManager studentManager;
     private LoanBookManager loanBookManager;
     private BookManager bookManager;
+    private LoanRequestManager loanRequestManager;
 
     public LibrarySystem() {
         this.studentManager = new StudentManager();
@@ -34,8 +37,17 @@ public class LibrarySystem {
         System.out.println("Not implemented.");
     }
 
-    public void requestOfReturningBook(Student student) {
-        System.out.println("Not implemented.");
+    public void loanBookRequest(String bookId, Student student, LocalDate startDate,LocalDate endDate) {
+        Book targetBook = bookManager.searchBookById(bookId);
+        if (targetBook == null) {
+            System.out.println("Request failed. A book with ID : " + bookId + "do not exist.");
+        } else {
+            if (loanBookManager.isABookAvailable(targetBook)) {
+                loanRequestManager.addLoanRequest(targetBook, student, startDate, endDate);
+            } else {
+                System.out.println("Your request failed. The Book is on loan.");
+            }
+        }
     }
 
     public void displayAvailableBooks() {

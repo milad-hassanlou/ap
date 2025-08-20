@@ -27,4 +27,12 @@ public class BookManager {
                 .filter(b -> (publishYear == null || b.getPublishYear() == Integer.parseInt(publishYear)))
                 .forEach(b -> System.out.println(b + "| Available :" + loanBookManager.isABookAvailable(b)));
     }
+
+
+    public Book searchBookById(String bookId) {
+        return books.stream()
+                .filter(b->b.getBookId().equals(bookId))
+                .findFirst()
+                .orElse(null);
+    }
 }

@@ -3,6 +3,7 @@ package ap.exercises.finalproject;
 
 // MenuHandler.java
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class MenuHandler {
@@ -96,7 +97,7 @@ public class MenuHandler {
             System.out.println("2. Edit My Information");
             System.out.println("3. View Available Books");
             System.out.println("4. Search A Book");
-            System.out.println("5. Submit A Book Returning Request");
+            System.out.println("5. Submit A Book Loaning Request");
             System.out.println("6. Logout");
             System.out.print("Please enter your choice: ");
 
@@ -117,7 +118,7 @@ public class MenuHandler {
                     handleBookSearching();
                     break;
                 case 5:
-                    handleBookReturningRequest();
+                    handleLoanRequest();
                     break;
                 case 6:
                     currentUser = null;
@@ -172,9 +173,36 @@ public class MenuHandler {
 
     }
 
-    private void handleBookReturningRequest() {
-        System.out.println("Not implemented.");
-        librarySystem.requestOfReturningBook(currentUser);
+    private void handleLoanRequest() {
+        System.out.println("\n--- Submitting Loan Request ---");
+        System.out.println("Please fill in the fields below:(To Find a Book and it's Id, Search Before.)");
+
+        System.out.print("The BookId: ");
+        String bookId = scanner.nextLine();
+
+        System.out.print("Loan Start Date: (Year-Mon-Day)");
+        String startPoint = scanner.nextLine();
+        LocalDate startDate=null;
+        try {
+             startDate = LocalDate.parse(startPoint);
+        }catch(Exception e){
+            System.out.println("Invalid Input For Start Date. " + "Error Message: " + e.getMessage());
+        }
+
+        System.out.print("Loan End Date: (Year-Mon-Day)");
+        String endPoint = scanner.nextLine();
+        LocalDate endDate = null;
+        try {
+            endDate = LocalDate.parse(endPoint);
+        }catch(Exception e){
+            System.out.println("Invalid Input For End Date" + "Error Message: " + e.getMessage());
+        }
+
+        if(endDate.isAfter(LocalDate.now()) && startDate.isAfter(LocalDate.now()) && endDate.isAfter(startDate)) {
+            librarySystem.loanBookRequest(bookId, currentUser, startDate, endDate);
+        }else{
+            System.out.println("Entered dates are not valid!");
+        }
     }
 
     private int getIntInput(int min, int max) {
