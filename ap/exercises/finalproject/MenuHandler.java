@@ -10,6 +10,7 @@ public class MenuHandler {
     private Scanner scanner;
     private LibrarySystem librarySystem;
     private Student currentUser;
+    private Employee currentEmployee;
 
     public MenuHandler(LibrarySystem librarySystem) {
         this.scanner = new Scanner(System.in);
@@ -23,10 +24,11 @@ public class MenuHandler {
             System.out.println("1. Student Registration");
             System.out.println("2. Student Login");
             System.out.println("3. Guest User");
-            System.out.println("4. Exit");
+            System.out.println("4. Agent Login");
+            System.out.println("5. Exit");
             System.out.print("Please enter your choice: ");
 
-            int choice = getIntInput(1, 4);
+            int choice = getIntInput(1, 5);
 
             switch (choice) {
                 case 1:
@@ -39,6 +41,9 @@ public class MenuHandler {
                     displayGuestMenu();
                     break;
                 case 4:
+                    handleEmployeeLogin();
+                    break;
+                case 5:
                     System.out.println("Exiting system. Goodbye!");
                     return;
                 default:
@@ -82,6 +87,24 @@ public class MenuHandler {
             displayLoggedInStudentMenu();
         } else {
             System.out.println("Invalid username or password. Please try again.");
+        }
+    }
+
+    private void handleEmployeeLogin() {
+        System.out.println("\n--- Agent of Library Login ---");
+
+        System.out.print("Username: ");
+        String username = scanner.nextLine();
+
+        System.out.print("Password: ");
+        String password = scanner.nextLine();
+
+        currentEmployee = librarySystem.authenticateEmployee(username, password);
+        if (currentEmployee == null) {
+            System.out.println("Invalid username or password. Please try again.");
+        } else {
+            System.out.println("Login successful! Welcome, " + currentEmployee.getName());
+            displayLoggedInEmployeeMenu();
         }
     }
 
@@ -262,6 +285,9 @@ public class MenuHandler {
 
     }
 
+    private void displayLoggedInEmployeeMenu() {
+        System.out.println("Not Implemented");
+    }
 
     private int getIntInput(int min, int max) {
         while (true) {

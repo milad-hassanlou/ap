@@ -9,12 +9,16 @@ public class LibrarySystem {
     private LoanBookManager loanBookManager;
     private BookManager bookManager;
     private LoanRequestManager loanRequestManager;
+    private final EmployeeManager employeeManager;
 
     public LibrarySystem() {
         this.studentManager = new StudentManager();
         this.menuHandler = new MenuHandler(this);
         this.loanBookManager = new LoanBookManager();
         this.bookManager = new BookManager(this.loanBookManager);
+        this.loanRequestManager = new LoanRequestManager();
+        this.employeeManager = new EmployeeManager();
+
     }
 
     public int getStudentCount() {
@@ -41,15 +45,19 @@ public class LibrarySystem {
         return studentManager.authenticateStudent(username, password);
     }
 
+    public Employee authenticateEmployee(String username, String password) {
+        return employeeManager.authenticateEmployee(username, password);
+    }
+
     public void editStudentInformation(Student student, String username, String password) {
-        studentManager.editStudentInformation(student,username,password);
+        studentManager.editStudentInformation(student, username, password);
     }
 
     public void borrowBook(Student student) {
         System.out.println("Not implemented.");
     }
 
-    public void loanBookRequest(String bookId, Student student, LocalDate startDate,LocalDate endDate) {
+    public void loanBookRequest(String bookId, Student student, LocalDate startDate, LocalDate endDate) {
         Book targetBook = bookManager.searchBookById(bookId);
         if (targetBook == null) {
             System.out.println("Request failed. A book with ID : " + bookId + "do not exist.");
