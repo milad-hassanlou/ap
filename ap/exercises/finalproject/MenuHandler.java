@@ -289,14 +289,21 @@ public class MenuHandler {
         while (true) {
             System.out.println("\n--- Agent of Library Menu ---");
             System.out.println("1. Change Password");
-            System.out.println("2. Exit");
+            System.out.println("2. Add Book");
+            System.out.println("3. Exit");
 
-            int choice = getIntInput(1,2);
+            int choice = getIntInput(1, 3);
 
-            switch(choice){
+            switch (choice) {
                 case 1:
                     handleEmployeePasswordChange();
                     break;
+                case 2:
+                    handleAddNewBooK();
+                    break;
+                case 3:
+                    System.out.println("Exiting system. Goodbye!");
+                    return;
                 default:
                     System.out.println("Invalid option! Please try again.");
 
@@ -304,13 +311,32 @@ public class MenuHandler {
         }
     }
 
-    private void handleEmployeePasswordChange(){
+    private void handleEmployeePasswordChange() {
         System.out.println("\n--- Employee Password Changing ---");
 
         System.out.print("New Password: ");
         String password = scanner.nextLine();
 
-        librarySystem.employeePasswordChanging(currentEmployee,password);
+        librarySystem.employeePasswordChanging(currentEmployee, password);
+    }
+
+    private void handleAddNewBooK() {
+        System.out.println("\n--- Adding Book To Library ---");
+
+        System.out.print("Book Id:");
+        String bookId = scanner.nextLine().trim();
+
+        System.out.print("Book Title:");
+        String title = scanner.nextLine().trim();
+
+        System.out.print("Author:");
+        String author = scanner.nextLine().trim();
+
+        System.out.print("Publish Year:");
+        int publishYear = scanner.nextInt();
+        scanner.nextLine();
+
+        librarySystem.addNewBook(bookId, title, author, publishYear);
     }
 
     private int getIntInput(int min, int max) {

@@ -61,6 +61,18 @@ public class LibrarySystem {
         System.out.println("Not implemented.");
     }
 
+    public void addNewBook(String bookId, String title, String author, int publishYear) {
+        bookManager.addNewBook(title, author, publishYear, bookId);
+    }
+
+    public void displayAvailableBooks() {
+        bookManager.displayAvailableBooks();
+    }
+
+    public void searchBookByTitleForGuest(String title) {
+        bookManager.searchBYTitleForGuest(title);
+    }
+
     public void loanBookRequest(String bookId, Student student, LocalDate startDate, LocalDate endDate) {
         Book targetBook = bookManager.searchBookById(bookId);
         if (targetBook == null) {
@@ -72,14 +84,6 @@ public class LibrarySystem {
                 System.out.println("Your request failed. The Book is on loan.");
             }
         }
-    }
-
-    public void displayAvailableBooks() {
-        bookManager.displayAvailableBooks();
-    }
-
-    public void searchBookByTitleForGuest(String title){
-       bookManager.searchBYTitleForGuest(title);
     }
 
     public void start() {

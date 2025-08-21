@@ -38,4 +38,17 @@ public class Book {
                 " | Author Name: " + author +
                 " | Publish Year: " + publishYear;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+        Book book = (Book) obj;
+        return (this.title.equalsIgnoreCase(book.title) && this.author.equalsIgnoreCase(book.title)
+                && this.bookId.equals(book.bookId) && this.publishYear == book.publishYear);
+    }
 }

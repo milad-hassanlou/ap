@@ -12,6 +12,23 @@ public class BookManager {
         this.loanBookManager = loanBookManager;
     }
 
+    public void addNewBook(String title, String author, int publishYear, String bookId) {
+        Book newBook = new Book(title, author, publishYear, bookId);
+        if (isBookRepeated(newBook)) {
+            System.out.println("Action Failed. The book already exists in library.");
+        } else {
+            books.add(newBook);
+            System.out.println("The book " + newBook.getTitle() + " successfully added.");
+        }
+    }
+
+    private boolean isBookRepeated(Book book) {
+        int count = (int) books.stream()
+                .filter(b -> b.equals(book))
+                .count();
+        return count != 0;
+    }
+
     public void displayAvailableBooks() {
         books.stream()
                 .filter(book -> loanBookManager.isABookAvailable(book))
