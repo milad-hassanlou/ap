@@ -56,6 +56,31 @@ public class BookManager {
                 .forEach(b -> System.out.println(b));
     }
 
+    public void changeBookInfo(String targetBookId, String bookId, String title, String author, String publishYear) {
+        Book targetBook = searchBookById(targetBookId);
+        if (targetBook == null) {
+            System.out.println("Target book didn't found. Book Id-Number may not be true.");
+        } else {
+            if (bookId != null) {
+                targetBook.setBookId(bookId);
+            }
+
+            if (title != null) {
+                targetBook.setTitle(title);
+            }
+
+            if (author != null) {
+                targetBook.setAuthor(author);
+            }
+
+            if (publishYear != null) {
+                targetBook.setPublishYear(Integer.parseInt(publishYear));
+            }
+
+            System.out.println("Information of the book successfully changed.");
+        }
+    }
+
     public int getBookCount() {
         return books.size();
     }

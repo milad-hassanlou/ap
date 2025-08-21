@@ -31,6 +31,22 @@ public class Book {
         return bookId;
     }
 
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setPublishYear(int publishYear) {
+        this.publishYear = publishYear;
+    }
+
     @Override
     public String toString() {
         return " BookId: " + bookId +

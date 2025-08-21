@@ -183,7 +183,7 @@ public class MenuHandler {
             publishYear = null;
         }
 
-        if (title == null || author == null || publishYear == null) {
+        if (title == null && author == null && publishYear == null) {
             System.out.println("No information declared. Searching Failed!");
         } else {
             librarySystem.searchBook(title, author, publishYear);
@@ -193,7 +193,7 @@ public class MenuHandler {
 
     private void handleLoanRequest() {
         System.out.println("\n--- Submitting Loan Request ---");
-        System.out.println("Please fill in the fields below:(To Find a Book and it's Id, Search Before.)");
+        System.out.println("Please fill in the fields below: (To Find a Book and it's Id, Search Before.)");
 
         System.out.print("The BookId: ");
         String bookId = scanner.nextLine();
@@ -290,9 +290,10 @@ public class MenuHandler {
             System.out.println("\n--- Agent of Library Menu ---");
             System.out.println("1. Change Password");
             System.out.println("2. Add Book");
-            System.out.println("3. Exit");
+            System.out.println("3. Edit Book Information");
+            System.out.println("4. Exit");
 
-            int choice = getIntInput(1, 3);
+            int choice = getIntInput(1, 4);
 
             switch (choice) {
                 case 1:
@@ -302,6 +303,9 @@ public class MenuHandler {
                     handleAddNewBooK();
                     break;
                 case 3:
+                    handleEditingBook();
+                    break;
+                case 4:
                     System.out.println("Exiting system. Goodbye!");
                     return;
                 default:
@@ -338,6 +342,54 @@ public class MenuHandler {
 
         librarySystem.addNewBook(bookId, title, author, publishYear);
     }
+
+    private void handleEditingBook() {
+        System.out.println("\n--- Editing Book Information ---");
+        System.out.println("Description: First, search the book and keep it's Id-Number");
+        System.out.println("Then, Enter the Id-Number and new information.");
+        handleBookSearching();
+        System.out.println("\n-----------------------------\n");
+        System.out.println("Enter new information to be changed. (If a field will not be changed pass Enter key.)");
+
+        System.out.print("Id-Number of Target Book :");
+        String targetBookId = scanner.nextLine().trim();
+        if (targetBookId.isEmpty()) {
+            System.out.println("Changing book information failed!");
+            return;
+        }
+
+        System.out.print("Book Id:");
+        String bookId = scanner.nextLine().trim();
+        if (bookId.isEmpty()) {
+            bookId = null;
+        }
+
+        System.out.print("Book Title:");
+        String title = scanner.nextLine().trim();
+        if (title.isEmpty()) {
+            title = null;
+        }
+
+        System.out.print("Author:");
+        String author = scanner.nextLine().trim();
+        if (author.isEmpty()) {
+            author = null;
+        }
+
+        System.out.print("Publish Year:");
+        String publishYear = scanner.nextLine().trim();
+        if (publishYear.isEmpty()) {
+            publishYear = null;
+        }
+
+        if (bookId == null && title == null && author == null && publishYear == null) {
+            System.out.println("No information declared. Changing Information Failed!");
+        } else {
+            librarySystem.changeBookInfo(targetBookId, bookId, title, author, publishYear);
+        }
+
+    }
+
 
     private int getIntInput(int min, int max) {
         while (true) {

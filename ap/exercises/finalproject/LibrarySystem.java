@@ -73,6 +73,14 @@ public class LibrarySystem {
         bookManager.searchBYTitleForGuest(title);
     }
 
+    public void searchBook(String title, String author, String publishYear) {
+        bookManager.searchBook(title, author, publishYear);
+    }
+
+    public void changeBookInfo(String targetBookId, String bookId, String title, String author, String publishYear) {
+        bookManager.changeBookInfo(targetBookId, bookId, title, author, publishYear);
+    }
+
     public void loanBookRequest(String bookId, Student student, LocalDate startDate, LocalDate endDate) {
         Book targetBook = bookManager.searchBookById(bookId);
         if (targetBook == null) {
@@ -93,9 +101,5 @@ public class LibrarySystem {
     public static void main(String[] args) {
         LibrarySystem system = new LibrarySystem();
         system.start();
-    }
-
-    public void searchBook(String title, String author, String publishYear) {
-        bookManager.searchBook(title,author,publishYear);
     }
 }
