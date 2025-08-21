@@ -286,7 +286,31 @@ public class MenuHandler {
     }
 
     private void displayLoggedInEmployeeMenu() {
-        System.out.println("Not Implemented");
+        while (true) {
+            System.out.println("\n--- Agent of Library Menu ---");
+            System.out.println("1. Change Password");
+            System.out.println("2. Exit");
+
+            int choice = getIntInput(1,2);
+
+            switch(choice){
+                case 1:
+                    handleEmployeePasswordChange();
+                    break;
+                default:
+                    System.out.println("Invalid option! Please try again.");
+
+            }
+        }
+    }
+
+    private void handleEmployeePasswordChange(){
+        System.out.println("\n--- Employee Password Changing ---");
+
+        System.out.print("New Password: ");
+        String password = scanner.nextLine();
+
+        librarySystem.employeePasswordChanging(currentEmployee,password);
     }
 
     private int getIntInput(int min, int max) {

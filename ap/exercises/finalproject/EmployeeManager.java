@@ -17,5 +17,10 @@ public class EmployeeManager {
                 .orElse(null);
     }
 
-
+    public void employeePasswordChanging(Employee employee, String password) {
+        employees.stream()
+                .filter(e->e==employee)
+                .forEach(e->e.setPassword(password));
+        System.out.println("Password Successfully Changed.");
+    }
 }

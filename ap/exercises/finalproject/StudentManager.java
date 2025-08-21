@@ -39,8 +39,6 @@ public class StudentManager {
                 st.setPassword(password);
                 System.out.println("Username and Password Successfully Changed.");
                 break;
-            } else {
-                System.out.println("There is a problem with changing information.");
             }
         }
     }
