@@ -194,6 +194,10 @@ public class MenuHandler {
 
     private void handleLoanRequest() {
         System.out.println("\n--- Submitting Loan Request ---");
+        if (librarySystem.isBlocked(currentUser)) {
+            System.out.println("Sorry, You are Blocked by library agents.");
+            return;
+        }
         System.out.println("Please fill in the fields below: (To Find a Book and it's Id, Search Before.)");
 
         System.out.print("The BookId: ");
@@ -294,9 +298,11 @@ public class MenuHandler {
             System.out.println("3. Edit Book Information");
             System.out.println("4. Check and Accept Recent Requests");
             System.out.println("5. Student Personal Statistics");
-            System.out.println("6. Exit");
+            System.out.println("6. Student Accessibility");
+            System.out.println("7. Exit");
+            System.out.print("Please enter your choice: ");
 
-            int choice = getIntInput(1, 6);
+            int choice = getIntInput(1, 7);
 
             switch (choice) {
                 case 1:
@@ -315,6 +321,8 @@ public class MenuHandler {
                     handleStudentStatistics();
                     break;
                 case 6:
+                    handleStudentAccessibility();
+                case 7:
                     System.out.println("Exiting system. Goodbye!");
                     return;
                 default:
@@ -431,6 +439,28 @@ public class MenuHandler {
         librarySystem.displayStudentStatistics(id);
     }
 
+    public void handleStudentAccessibility() {
+        System.out.println("\n--- Student Accessibility ---");
+        System.out.println("1. BlocKing");
+        System.out.println("2. Unblocking");
+        System.out.print("Please enter your choice: ");
+
+        int choice = getIntInput(1, 2);
+
+        System.out.print("Student Id: ");
+        String id = scanner.nextLine();
+
+        switch (choice) {
+            case 1:
+                librarySystem.blockStudent(id);
+                break;
+            case 2:
+                librarySystem.unblockStudent(id);
+                break;
+            default:
+                System.out.println("Invalid Choice.");
+        }
+    }
 
     private int getIntInput(int min, int max) {
         while (true) {

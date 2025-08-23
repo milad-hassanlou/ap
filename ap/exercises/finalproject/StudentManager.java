@@ -5,9 +5,11 @@ import java.util.List;
 
 public class StudentManager {
     private List<Student> students;
+    private final List<Student> blackList;
 
     public StudentManager() {
         this.students = new ArrayList<>();
+        this.blackList = new ArrayList<>();
     }
 
     public void registerStudent(String name, String studentId, String username, String password) {
@@ -61,6 +63,36 @@ public class StudentManager {
                 .filter(s -> s.getUserId().equals(id))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public void addStudentToBlackList(String id) {
+        Student student = searchById(id);
+        if (student == null) {
+            System.out.println("There's no student with this id.");
+            return;
+        }
+        System.out.println("Student-> " + student + " will be blocked.");
+        blackList.add(student);
+        System.out.println("Blocking done.");
+    }
+
+    public void removeStudentFromBlackList(String id) {
+        Student student = searchById(id);
+        if (student == null) {
+            System.out.println("There's no student with this id.");
+            return;
+        }
+        System.out.println("Student-> " + student + " will be unblocked.");
+        blackList.remove(student);
+        System.out.println("Unblocking done.");
+    }
+
+    public boolean isBlocked(Student student) {
+        int count = (int) blackList.stream()
+                .filter(s -> s == student)
+                .count();
+
+        return count != 0;
     }
 
     private boolean isUsernameTaken(String username) {

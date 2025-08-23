@@ -58,10 +58,6 @@ public class LibrarySystem {
         studentManager.editStudentInformation(student, username, password);
     }
 
-    public void borrowBook(Student student) {
-        System.out.println("Not implemented.");
-    }
-
     public void addNewBook(String bookId, String title, String author, int publishYear) {
         bookManager.addNewBook(title, author, publishYear, bookId);
     }
@@ -112,6 +108,19 @@ public class LibrarySystem {
         }
         loanBookManager.displayStudentStatistics(student);
     }
+
+    public void blockStudent(String id) {
+        studentManager.addStudentToBlackList(id);
+    }
+
+    public void unblockStudent(String id) {
+        studentManager.removeStudentFromBlackList(id);
+    }
+
+    public boolean isBlocked(Student student) {
+        return studentManager.isBlocked(student);
+    }
+
 
     public void start() {
         menuHandler.displayMainMenu();
