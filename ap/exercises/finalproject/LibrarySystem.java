@@ -104,6 +104,15 @@ public class LibrarySystem {
         loanRequestManager.deleteRequest(request);
     }
 
+    public void displayStudentStatistics(String id) {
+        Student student = studentManager.searchById(id);
+        if (student == null) {
+            System.out.println("There isn't any student with this Id.");
+            return;
+        }
+        loanBookManager.displayStudentStatistics(student);
+    }
+
     public void start() {
         menuHandler.displayMainMenu();
     }

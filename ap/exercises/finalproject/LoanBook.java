@@ -20,13 +20,20 @@ public class LoanBook {
         this.endDate = loanRequest.getEndDate();
     }
 
+    public Student getStudent() {
+        return student;
+    }
+
     public Book getBook() {
         return book;
     }
 
     public boolean isReturned() {
-        return (returnDate!=null || getterEmployee!=null);
+        return (returnDate != null || getterEmployee != null);
     }
 
+    public boolean isDelayedInReturning() {
+        return (returnDate != null && returnDate.isAfter(endDate));
+    }
 }
 

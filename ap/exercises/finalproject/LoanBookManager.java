@@ -24,6 +24,29 @@ public class LoanBookManager {
         return count == 0;
     }
 
+    public void displayStudentStatistics(Student student) {
+        int allLoansCount = 0;
+        int notReturnedLoansCount = 0;
+        int withDelayLoansCount = 0;
+        for (LoanBook loanBook : loans) {
+            if (loanBook.getStudent() == student) {
+                allLoansCount++;
+                if (!loanBook.isReturned()) {
+                    notReturnedLoansCount++;
+                } else {
+                    if (loanBook.isDelayedInReturning()) {
+                        withDelayLoansCount++;
+                    }
+                }
+            }
+        }
+        System.out.println("\n-- Student General Statistics --");
+        System.out.println("All Borrowed Books: " + allLoansCount);
+        System.out.println("Unreturned Books: " + notReturnedLoansCount);
+        System.out.println("Overdue Books: " + withDelayLoansCount);
+
+    }
+
     public int getLoanHistoryCount() {
         return loans.size();
     }

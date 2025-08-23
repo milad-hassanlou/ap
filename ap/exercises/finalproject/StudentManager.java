@@ -56,6 +56,12 @@ public class StudentManager {
         }
     }
 
+    public Student searchById(String id) {
+        return students.stream()
+                .filter(s -> s.getUserId().equals(id))
+                .findFirst()
+                .orElse(null);
+    }
 
     private boolean isUsernameTaken(String username) {
         return students.stream().anyMatch(s -> s.getUsername().equals(username));

@@ -293,9 +293,10 @@ public class MenuHandler {
             System.out.println("2. Add Book");
             System.out.println("3. Edit Book Information");
             System.out.println("4. Check and Accept Recent Requests");
-            System.out.println("5. Exit");
+            System.out.println("5. Student Personal Statistics");
+            System.out.println("6. Exit");
 
-            int choice = getIntInput(1, 5);
+            int choice = getIntInput(1, 6);
 
             switch (choice) {
                 case 1:
@@ -311,6 +312,9 @@ public class MenuHandler {
                     handleAcceptingRequests();
                     break;
                 case 5:
+                    handleStudentStatistics();
+                    break;
+                case 6:
                     System.out.println("Exiting system. Goodbye!");
                     return;
                 default:
@@ -396,7 +400,7 @@ public class MenuHandler {
     }
 
     public void handleAcceptingRequests() {
-        System.out.println("\n--- Handle Accepting Requests ---");
+        System.out.println("\n--- Accepting Requests ---");
         while (true) {
             System.out.println("Recent Requests: ");
             List<LoanRequest> recentRequests = librarySystem.listOfRecentRequests();
@@ -418,6 +422,13 @@ public class MenuHandler {
             }
             librarySystem.convertRequestToAcceptedLoan(currentEmployee, recentRequests.get(input + 1));
         }
+    }
+
+    public void handleStudentStatistics() {
+        System.out.println("\n--- Student Statistics ---");
+        System.out.print("Student Id:");
+        String id = scanner.nextLine();
+        librarySystem.displayStudentStatistics(id);
     }
 
 
