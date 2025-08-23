@@ -20,6 +20,14 @@ public class LoanBook {
         this.endDate = loanRequest.getEndDate();
     }
 
+    public void setGetterEmployee(Employee getterEmployee) {
+        this.getterEmployee = getterEmployee;
+    }
+
+    public void setReturnDate(LocalDate returnDate) {
+        this.returnDate = returnDate;
+    }
+
     public Student getStudent() {
         return student;
     }

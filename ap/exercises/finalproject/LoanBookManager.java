@@ -1,5 +1,6 @@
 package ap.exercises.finalproject;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,4 +52,18 @@ public class LoanBookManager {
         return loans.size();
     }
 
+    public void returnBook(String bookId, Employee currentEmployee) {
+        LoanBook loanBook = loans.stream()
+                .filter(l -> l.getBook().getBookId().equals(bookId))
+                .filter(l -> !(l.isReturned()))
+                .findFirst()
+                .orElse(null);
+        if (loanBook == null) {
+            System.out.println("There's not such a book on loan.");
+            return;
+        }
+        loanBook.setGetterEmployee(currentEmployee);
+        loanBook.setReturnDate(LocalDate.now());
+        System.out.println("Book returned successfully.");
+    }
 }

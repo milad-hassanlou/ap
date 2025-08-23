@@ -121,6 +121,9 @@ public class LibrarySystem {
         return studentManager.isBlocked(student);
     }
 
+    public void returnLoaningBook(String bookId, Employee currentEmployee) {
+        loanBookManager.returnBook(bookId,currentEmployee);
+    }
 
     public void start() {
         menuHandler.displayMainMenu();

@@ -299,7 +299,8 @@ public class MenuHandler {
             System.out.println("4. Check and Accept Recent Requests");
             System.out.println("5. Student Personal Statistics");
             System.out.println("6. Student Accessibility");
-            System.out.println("7. Exit");
+            System.out.println("7. Receive Book");
+            System.out.println("8. Exit");
             System.out.print("Please enter your choice: ");
 
             int choice = getIntInput(1, 7);
@@ -323,6 +324,9 @@ public class MenuHandler {
                 case 6:
                     handleStudentAccessibility();
                 case 7:
+                    handleReceivingBook();
+                    break;
+                case 8:
                     System.out.println("Exiting system. Goodbye!");
                     return;
                 default:
@@ -460,6 +464,13 @@ public class MenuHandler {
             default:
                 System.out.println("Invalid Choice.");
         }
+    }
+
+    public void handleReceivingBook(){
+        System.out.println("-- Receiving Book --");
+        System.out.print("Enter the Id written on the book: ");
+        String bookId = scanner.nextLine();
+        librarySystem.returnLoaningBook(bookId,currentEmployee);
     }
 
     private int getIntInput(int min, int max) {
