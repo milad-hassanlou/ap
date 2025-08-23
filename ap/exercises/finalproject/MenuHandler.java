@@ -4,6 +4,7 @@ package ap.exercises.finalproject;
 // MenuHandler.java
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 public class MenuHandler {
@@ -291,9 +292,10 @@ public class MenuHandler {
             System.out.println("1. Change Password");
             System.out.println("2. Add Book");
             System.out.println("3. Edit Book Information");
-            System.out.println("4. Exit");
+            System.out.println("4. Check and Accept Recent Requests");
+            System.out.println("5. Exit");
 
-            int choice = getIntInput(1, 4);
+            int choice = getIntInput(1, 5);
 
             switch (choice) {
                 case 1:
@@ -306,6 +308,9 @@ public class MenuHandler {
                     handleEditingBook();
                     break;
                 case 4:
+                    handleAcceptingRequests();
+                    break;
+                case 5:
                     System.out.println("Exiting system. Goodbye!");
                     return;
                 default:
@@ -388,6 +393,31 @@ public class MenuHandler {
             librarySystem.changeBookInfo(targetBookId, bookId, title, author, publishYear);
         }
 
+    }
+
+    public void handleAcceptingRequests() {
+        System.out.println("\n--- Handle Accepting Requests ---");
+        while (true) {
+            System.out.println("Recent Requests: ");
+            List<LoanRequest> recentRequests = librarySystem.listOfRecentRequests();
+
+            if (recentRequests.size() == 0) {
+                System.out.println("No recent requests.");
+                return;
+            }
+
+            for (int i = 0; i < recentRequests.size(); i++) {
+                System.out.println((i + 1) + ". " + recentRequests.get(i));
+            }
+
+            System.out.print("Please select the request by its number, or enter 0 to exit:");
+            int input = getIntInput(0, recentRequests.size());
+
+            if (input == 0) {
+                return;
+            }
+            librarySystem.convertRequestToAcceptedLoan(currentEmployee, recentRequests.get(input + 1));
+        }
     }
 
 

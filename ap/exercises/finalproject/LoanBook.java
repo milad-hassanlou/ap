@@ -12,19 +12,19 @@ public class LoanBook {
     private LocalDate returnDate;
 
 
-    public LoanBook(Student student, Book book, Employee giverEmployee, String startDate, String endDate) {
-        this.student = student;
-        this.book = book;
+    public LoanBook(LoanRequest loanRequest, Employee giverEmployee) {
+        this.student = loanRequest.getStudent();
+        this.book = loanRequest.getBook();
         this.giverEmployee = giverEmployee;
-        this.startDate = LocalDate.parse(startDate);
-        this.endDate = LocalDate.parse(endDate);
+        this.startDate = loanRequest.getStartDate();
+        this.endDate = loanRequest.getEndDate();
     }
 
     public Book getBook() {
         return book;
     }
 
-    public boolean isReturned(){
+    public boolean isReturned() {
         return (returnDate!=null || getterEmployee!=null);
     }
 

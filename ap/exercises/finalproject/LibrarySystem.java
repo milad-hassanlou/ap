@@ -1,6 +1,7 @@
 package ap.exercises.finalproject;
 
 import java.time.LocalDate;
+import java.util.List;
 
 // LibrarySystem.java
 public class LibrarySystem {
@@ -92,6 +93,15 @@ public class LibrarySystem {
                 System.out.println("Your request failed. The Book is on loan.");
             }
         }
+    }
+
+    public List<LoanRequest> listOfRecentRequests() {
+        return loanRequestManager.listOfRecentRequests();
+    }
+
+    public void convertRequestToAcceptedLoan(Employee giverEmployee, LoanRequest request) {
+        loanBookManager.addLoan(giverEmployee, request);
+        loanRequestManager.deleteRequest(request);
     }
 
     public void start() {

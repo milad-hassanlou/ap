@@ -10,6 +10,12 @@ public class LoanBookManager {
         loans = new ArrayList<>();
     }
 
+    public void addLoan(Employee giverEmployee, LoanRequest request) {
+        LoanBook newLoanBook = new LoanBook(request, giverEmployee);
+        loans.add(newLoanBook);
+        System.out.println("Request successfully accepted. The book is ready for borrowing.");
+    }
+
     public boolean isABookAvailable(Book targetBook) {
         long count = loans.stream()
                 .filter(l -> l.getBook() == targetBook)

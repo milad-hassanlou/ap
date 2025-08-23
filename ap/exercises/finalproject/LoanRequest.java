@@ -15,8 +15,24 @@ public class LoanRequest {
         this.endDate = endDate;
     }
 
+    public Student getStudent() {
+        return student;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
     @Override
-    public String toString(){
+    public String toString() {
         return " Student -> " + student
                 + " | Book -> " + book
                 + " | StartDate: " + startDate
