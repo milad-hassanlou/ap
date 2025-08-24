@@ -42,6 +42,10 @@ public class LibrarySystem {
         studentManager.registerStudent(name, studentId, username, password);
     }
 
+    public void registerEmployee(String name, String employeeId, String username, String password) {
+        employeeManager.registerEmployee(name, employeeId, username, password);
+    }
+
     public Student authenticateStudent(String username, String password) {
         return studentManager.authenticateStudent(username, password);
     }
@@ -132,5 +136,9 @@ public class LibrarySystem {
     public static void main(String[] args) {
         LibrarySystem system = new LibrarySystem();
         system.start();
+    }
+
+    public int getEmployeeCount() {
+        return employeeManager.getEmployeesCount();
     }
 }

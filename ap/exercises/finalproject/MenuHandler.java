@@ -12,11 +12,14 @@ public class MenuHandler {
     private LibrarySystem librarySystem;
     private Student currentUser;
     private Employee currentEmployee;
+    private LibraryHeadmaster headmaster;
+    final private int MAX_EMPLOYEES = 3;
 
     public MenuHandler(LibrarySystem librarySystem) {
         this.scanner = new Scanner(System.in);
         this.librarySystem = librarySystem;
         this.currentUser = null;
+        this.headmaster = new LibraryHeadmaster("Jalal", "mHg505p", "Saba1404", "s14B04");
     }
 
     public void displayMainMenu() {
@@ -26,10 +29,11 @@ public class MenuHandler {
             System.out.println("2. Student Login");
             System.out.println("3. Guest User");
             System.out.println("4. Agent Login");
-            System.out.println("5. Exit");
+            System.out.println("5. Headmaster Login");
+            System.out.println("6. Exit");
             System.out.print("Please enter your choice: ");
 
-            int choice = getIntInput(1, 5);
+            int choice = getIntInput(1, 6);
 
             switch (choice) {
                 case 1:
@@ -45,6 +49,9 @@ public class MenuHandler {
                     handleEmployeeLogin();
                     break;
                 case 5:
+                    handleHeadmasterLogin();
+                    break;
+                case 6:
                     System.out.println("Exiting system. Goodbye!");
                     return;
                 default:
@@ -106,6 +113,23 @@ public class MenuHandler {
         } else {
             System.out.println("Login successful! Welcome, " + currentEmployee.getName());
             displayLoggedInEmployeeMenu();
+        }
+    }
+
+    private void handleHeadmasterLogin() {
+        System.out.println("\n--- Headmaster of Library Login ---");
+
+        System.out.print("Username: ");
+        String username = scanner.nextLine();
+
+        System.out.print("Password: ");
+        String password = scanner.nextLine();
+
+        if (headmaster.headmasterLogin(username, password)) {
+            System.out.println("Login successful! Welcome, dear " + headmaster.getName());
+            displayHeadmasterMenu();
+        } else {
+            System.out.println("Invalid username or password. Please try again.");
         }
     }
 
@@ -303,7 +327,7 @@ public class MenuHandler {
             System.out.println("8. Exit");
             System.out.print("Please enter your choice: ");
 
-            int choice = getIntInput(1, 7);
+            int choice = getIntInput(1, 8);
 
             switch (choice) {
                 case 1:
@@ -466,12 +490,58 @@ public class MenuHandler {
         }
     }
 
-    public void handleReceivingBook(){
+    public void handleReceivingBook() {
         System.out.println("-- Receiving Book --");
         System.out.print("Enter the Id written on the book: ");
         String bookId = scanner.nextLine();
-        librarySystem.returnLoaningBook(bookId,currentEmployee);
+        librarySystem.returnLoaningBook(bookId, currentEmployee);
     }
+
+    public void displayHeadmasterMenu() {
+        while (true) {
+            System.out.println("\n--- Dear " + headmaster.getName() + "'s Menu ---");
+            System.out.println("1. Determine an Employee");
+            System.out.println("2. Exit");
+            System.out.print("Please enter your choice: ");
+
+            int choice = getIntInput(1, 2);
+
+            switch (choice) {
+                case 1:
+                    handleEmployeeAddition();
+                    break;
+                case 2:
+                    System.out.println("Exiting system. Goodbye!");
+                    return;
+                default:
+                    System.out.println("Invalid option! Please try again.");
+
+            }
+        }
+    }
+
+    public void handleEmployeeAddition() {
+        System.out.println("\n--- Employee Registration ---");
+        if (MAX_EMPLOYEES <= librarySystem.getEmployeeCount()) {
+            System.out.println("The limitation hit! There's already " + MAX_EMPLOYEES + " employees signed in system.");
+            return;
+        }
+
+        System.out.print("Employee's Name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Employee's ID: ");
+        String employeeId = scanner.nextLine();
+
+        System.out.print("Username: ");
+        String username = scanner.nextLine();
+
+        System.out.print("Password: ");
+        String password = scanner.nextLine();
+
+        librarySystem.registerEmployee(name, employeeId, username, password);
+    }
+
 
     private int getIntInput(int min, int max) {
         while (true) {
