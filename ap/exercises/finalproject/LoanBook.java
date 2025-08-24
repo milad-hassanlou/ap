@@ -28,6 +28,14 @@ public class LoanBook {
         this.returnDate = returnDate;
     }
 
+    public Employee getGiverEmployee() {
+        return giverEmployee;
+    }
+
+    public Employee getGetterEmployee() {
+        return getterEmployee;
+    }
+
     public Student getStudent() {
         return student;
     }

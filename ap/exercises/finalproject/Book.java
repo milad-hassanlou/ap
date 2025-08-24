@@ -7,9 +7,10 @@ public class Book {
     private String title;
     private String author;
     private int publishYear;
+    private Employee bookRegisterer;
 
-    public Book(String title, String author, int publishYear, String bookId) {
-        this.bookId=bookId;
+    public Book(Employee bookRegisterer, String title, String author, int publishYear, String bookId) {
+        this.bookId = bookId;
         this.title = title;
         this.author = author;
         this.publishYear = publishYear;
@@ -29,6 +30,10 @@ public class Book {
 
     public String getBookId() {
         return bookId;
+    }
+
+    public Employee getBookRegisterer() {
+        return bookRegisterer;
     }
 
     public void setBookId(String bookId) {

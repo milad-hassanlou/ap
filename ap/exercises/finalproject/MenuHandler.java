@@ -385,7 +385,7 @@ public class MenuHandler {
         int publishYear = scanner.nextInt();
         scanner.nextLine();
 
-        librarySystem.addNewBook(bookId, title, author, publishYear);
+        librarySystem.addNewBook(currentEmployee, bookId, title, author, publishYear);
     }
 
     private void handleEditingBook() {
@@ -501,16 +501,20 @@ public class MenuHandler {
         while (true) {
             System.out.println("\n--- Dear " + headmaster.getName() + "'s Menu ---");
             System.out.println("1. Determine an Employee");
-            System.out.println("2. Exit");
+            System.out.println("2. Display an Employee's Performance");
+            System.out.println("3. Exit");
             System.out.print("Please enter your choice: ");
 
-            int choice = getIntInput(1, 2);
+            int choice = getIntInput(1, 3);
 
             switch (choice) {
                 case 1:
                     handleEmployeeAddition();
                     break;
                 case 2:
+                    handleEmployeePerformance();
+                    break;
+                case 3:
                     System.out.println("Exiting system. Goodbye!");
                     return;
                 default:
@@ -540,6 +544,18 @@ public class MenuHandler {
         String password = scanner.nextLine();
 
         librarySystem.registerEmployee(name, employeeId, username, password);
+    }
+
+    public void handleEmployeePerformance() {
+        System.out.println("\n--- Employee's Performance Details ---");
+        System.out.print("Employee's ID: ");
+        String employeeId = scanner.nextLine();
+
+        List<Integer> details = librarySystem.employeePerformanceDetails(employeeId);
+        System.out.println("1. Books signed by this employee count: " + details.get(0));
+        System.out.println("2. Books given by this employee count: " + details.get(1));
+        System.out.println("3. Books gotten by this employee count: " + details.get(2));
+        System.out.println(" ------------------------------------------ ");
     }
 
 

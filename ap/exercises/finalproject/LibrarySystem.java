@@ -1,6 +1,7 @@
 package ap.exercises.finalproject;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 // LibrarySystem.java
@@ -54,16 +55,16 @@ public class LibrarySystem {
         return employeeManager.authenticateEmployee(username, password);
     }
 
-    public void employeePasswordChanging(Employee employee, String password){
-        employeeManager.employeePasswordChanging(employee,password);
+    public void employeePasswordChanging(Employee employee, String password) {
+        employeeManager.employeePasswordChanging(employee, password);
     }
 
     public void editStudentInformation(Student student, String username, String password) {
         studentManager.editStudentInformation(student, username, password);
     }
 
-    public void addNewBook(String bookId, String title, String author, int publishYear) {
-        bookManager.addNewBook(title, author, publishYear, bookId);
+    public void addNewBook(Employee employee, String bookId, String title, String author, int publishYear) {
+        bookManager.addNewBook(employee, title, author, publishYear, bookId);
     }
 
     public void displayAvailableBooks() {
@@ -126,7 +127,19 @@ public class LibrarySystem {
     }
 
     public void returnLoaningBook(String bookId, Employee currentEmployee) {
-        loanBookManager.returnBook(bookId,currentEmployee);
+        loanBookManager.returnBook(bookId, currentEmployee);
+    }
+
+    public int getEmployeeCount() {
+        return employeeManager.getEmployeesCount();
+    }
+
+    public List<Integer> employeePerformanceDetails(String employeeId) {
+        List<Integer> results = new ArrayList<>();
+        results.add(bookManager.bookSignedByEmployeeCount(employeeId));
+        results.add(loanBookManager.bookGivenByEmployeeCount(employeeId));
+        results.add(loanBookManager.bookGottenByEmployeeCount(employeeId));
+        return results;
     }
 
     public void start() {
@@ -136,9 +149,5 @@ public class LibrarySystem {
     public static void main(String[] args) {
         LibrarySystem system = new LibrarySystem();
         system.start();
-    }
-
-    public int getEmployeeCount() {
-        return employeeManager.getEmployeesCount();
     }
 }

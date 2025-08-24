@@ -66,4 +66,16 @@ public class LoanBookManager {
         loanBook.setReturnDate(LocalDate.now());
         System.out.println("Book returned successfully.");
     }
+
+    public Integer bookGivenByEmployeeCount(String employeeId) {
+        return (int) loans.stream()
+                .filter(l -> l.getGiverEmployee().getUserId().equals(employeeId))
+                .count();
+    }
+
+    public Integer bookGottenByEmployeeCount(String employeeId) {
+        return (int) loans.stream()
+                .filter(l -> l.getGetterEmployee().getUserId().equals(employeeId))
+                .count();
+    }
 }
