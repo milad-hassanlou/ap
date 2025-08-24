@@ -142,6 +142,15 @@ public class LibrarySystem {
         return results;
     }
 
+    public List<Double> bookStatistics(String bookId) {
+        List<Double> results = new ArrayList<>();
+        results.add((double) loanRequestManager.requestCountForBook(bookId));
+        results.add((double) loanBookManager.allLoansForBook(bookId));
+        results.add(loanBookManager.averageBorrowingDuration(bookId));
+        return results;
+
+    }
+
     public void start() {
         menuHandler.displayMainMenu();
     }

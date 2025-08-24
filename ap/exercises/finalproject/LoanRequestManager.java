@@ -21,6 +21,7 @@ public class LoanRequestManager {
     }
 
     public List<LoanRequest> listOfRecentRequests() {
+        renewList();
         LocalDate today = LocalDate.now();
         LocalDate yesterday = today.minusDays(1);
         return requests.stream()
@@ -28,7 +29,23 @@ public class LoanRequestManager {
                 .collect(Collectors.toList());
     }
 
+    public int requestCountForBook(String bookId) {
+        renewList();
+        return (int) requests.stream()
+                .filter(r -> r.getBook().getBookId().equals(bookId))
+                .count();
+    }
+
     public void deleteRequest(LoanRequest request) {
         requests.remove(request);
+    }
+
+    private void renewList() {
+        //Delete old requests from list of them.
+
+        LocalDate yesterday = LocalDate.now().minusDays(1);
+        requests = requests.stream()
+                .filter(r -> !(r.getStartDate().isBefore(yesterday)))
+                .collect(Collectors.toList());
     }
 }

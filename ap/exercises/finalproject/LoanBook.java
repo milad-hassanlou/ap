@@ -1,6 +1,7 @@
 package ap.exercises.finalproject;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class LoanBook {
     private Student student;
@@ -50,6 +51,13 @@ public class LoanBook {
 
     public boolean isDelayedInReturning() {
         return (returnDate != null && returnDate.isAfter(endDate));
+    }
+
+    public int loanDuration() {
+        if (startDate == null || returnDate == null) {
+            return 0;
+        }
+        return (int) ChronoUnit.DAYS.between(startDate, returnDate) - 1;
     }
 }
 

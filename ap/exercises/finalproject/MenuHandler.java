@@ -502,10 +502,11 @@ public class MenuHandler {
             System.out.println("\n--- Dear " + headmaster.getName() + "'s Menu ---");
             System.out.println("1. Determine an Employee");
             System.out.println("2. Display an Employee's Performance");
-            System.out.println("3. Exit");
+            System.out.println("3. Display Statistics for a Book ");
+            System.out.println("4. Exit");
             System.out.print("Please enter your choice: ");
 
-            int choice = getIntInput(1, 3);
+            int choice = getIntInput(1, 4);
 
             switch (choice) {
                 case 1:
@@ -515,6 +516,9 @@ public class MenuHandler {
                     handleEmployeePerformance();
                     break;
                 case 3:
+                    handleBookStatistics();
+                    break;
+                case 4:
                     System.out.println("Exiting system. Goodbye!");
                     return;
                 default:
@@ -558,6 +562,17 @@ public class MenuHandler {
         System.out.println(" ------------------------------------------ ");
     }
 
+    public void handleBookStatistics() {
+        System.out.println("\n--- Book Statistics ---");
+        System.out.print("Book ID: ");
+        String bookId = scanner.nextLine();
+
+        List<Double> details = librarySystem.bookStatistics(bookId);
+        System.out.println("1. Current Requests Signed for This Book : " + details.get(0).intValue());
+        System.out.println("2. Borrowing History Count for This Book  : " + details.get(1).intValue());
+        System.out.println("3. Average Days per Loan : " + details.get(2));
+        System.out.println(" ------------------------------------------ ");
+    }
 
     private int getIntInput(int min, int max) {
         while (true) {

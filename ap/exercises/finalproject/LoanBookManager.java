@@ -78,4 +78,19 @@ public class LoanBookManager {
                 .filter(l -> l.getGetterEmployee().getUserId().equals(employeeId))
                 .count();
     }
+
+    public int allLoansForBook(String bookId) {
+        return (int) loans.stream()
+                .filter(l -> l.getBook().getBookId().equals(bookId))
+                .count();
+    }
+
+    public double averageBorrowingDuration(String bookId) {
+
+        return loans.stream()
+                .filter(l -> l.getBook().getBookId().equals(bookId) && l.isReturned())
+                .mapToInt(l -> l.loanDuration())
+                .average()
+                .orElse(0);
+    }
 }
