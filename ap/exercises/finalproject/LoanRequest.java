@@ -1,8 +1,9 @@
 package ap.exercises.finalproject;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class LoanRequest {
+public class LoanRequest implements Serializable {
     private Student student;
     private Book book;
     private LocalDate startDate;

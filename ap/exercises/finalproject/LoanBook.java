@@ -1,9 +1,10 @@
 package ap.exercises.finalproject;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-public class LoanBook {
+public class LoanBook implements Serializable {
     private Student student;
     private Book book;
     private Employee giverEmployee;
@@ -58,6 +59,13 @@ public class LoanBook {
             return 0;
         }
         return (int) ChronoUnit.DAYS.between(startDate, returnDate) - 1;
+    }
+
+    public int delayDuration() {
+        if (endDate == null || returnDate == null) {
+            return 0;
+        }
+        return (int) ChronoUnit.DAYS.between(endDate, returnDate);
     }
 }
 

@@ -3,12 +3,13 @@ package ap.exercises.finalproject;
 
 // MenuHandler.java
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
-public class MenuHandler {
-    private Scanner scanner;
+public class MenuHandler implements Serializable {
+    private transient Scanner scanner;
     private LibrarySystem librarySystem;
     private Student currentUser;
     private Employee currentEmployee;
@@ -22,13 +23,17 @@ public class MenuHandler {
         this.headmaster = new LibraryHeadmaster("Jalal", "mHg505p", "Saba1404", "s14B04");
     }
 
+    public void setScanner(Scanner scanner) {
+        this.scanner = scanner;
+    }
+
     public void displayMainMenu() {
         while (true) {
             System.out.println("\n=== University Library Management System ===");
             System.out.println("1. Student Registration");
             System.out.println("2. Student Login");
             System.out.println("3. Guest User");
-            System.out.println("4. Agent Login");
+            System.out.println("4. Employee Login");
             System.out.println("5. Headmaster Login");
             System.out.println("6. Exit");
             System.out.print("Please enter your choice: ");
@@ -52,6 +57,7 @@ public class MenuHandler {
                     handleHeadmasterLogin();
                     break;
                 case 6:
+                    librarySystem.saveExit();
                     System.out.println("Exiting system. Goodbye!");
                     return;
                 default:
@@ -258,7 +264,7 @@ public class MenuHandler {
             System.out.println("1. View Registered Student Count");
             System.out.println("2. Search By Book's Title");
             System.out.println("3. Show Library Statistics ");
-            System.out.println("4. Exit");
+            System.out.println("4. Exit And Return to Previous Page");
             System.out.print("Please enter your choice: ");
 
 
@@ -275,7 +281,7 @@ public class MenuHandler {
                     displayLibraryStatistics();
                     break;
                 case 4:
-                    System.out.println("Exiting system. Goodbye!");
+                    System.out.println("Returning to Previous Page");
                     return;
                 default:
                     System.out.println("Invalid option! Please try again.");
@@ -324,7 +330,7 @@ public class MenuHandler {
             System.out.println("5. Student Personal Statistics");
             System.out.println("6. Student Accessibility");
             System.out.println("7. Receive Book");
-            System.out.println("8. Exit");
+            System.out.println("8. Logout");
             System.out.print("Please enter your choice: ");
 
             int choice = getIntInput(1, 8);
@@ -347,11 +353,13 @@ public class MenuHandler {
                     break;
                 case 6:
                     handleStudentAccessibility();
+                    break;
                 case 7:
                     handleReceivingBook();
                     break;
                 case 8:
-                    System.out.println("Exiting system. Goodbye!");
+                    currentEmployee = null;
+                    System.out.println("Logged out successfully.");
                     return;
                 default:
                     System.out.println("Invalid option! Please try again.");
@@ -456,7 +464,7 @@ public class MenuHandler {
             if (input == 0) {
                 return;
             }
-            librarySystem.convertRequestToAcceptedLoan(currentEmployee, recentRequests.get(input + 1));
+            librarySystem.convertRequestToAcceptedLoan(currentEmployee, recentRequests.get(input - 1));
         }
     }
 
@@ -502,11 +510,12 @@ public class MenuHandler {
             System.out.println("\n--- Dear " + headmaster.getName() + "'s Menu ---");
             System.out.println("1. Determine an Employee");
             System.out.println("2. Display an Employee's Performance");
-            System.out.println("3. Display Statistics for a Book ");
-            System.out.println("4. Exit");
+            System.out.println("3. Display Statistics for a Book");
+            System.out.println("4. Display Statistics for All Students");
+            System.out.println("5. Logout");
             System.out.print("Please enter your choice: ");
 
-            int choice = getIntInput(1, 4);
+            int choice = getIntInput(1, 5);
 
             switch (choice) {
                 case 1:
@@ -519,7 +528,10 @@ public class MenuHandler {
                     handleBookStatistics();
                     break;
                 case 4:
-                    System.out.println("Exiting system. Goodbye!");
+                    handleGeneralStudentsStatistics();
+                    break;
+                case 5:
+                    System.out.println("Logged out successfully.");
                     return;
                 default:
                     System.out.println("Invalid option! Please try again.");
@@ -559,7 +571,7 @@ public class MenuHandler {
         System.out.println("1. Books signed by this employee count: " + details.get(0));
         System.out.println("2. Books given by this employee count: " + details.get(1));
         System.out.println("3. Books gotten by this employee count: " + details.get(2));
-        System.out.println(" ------------------------------------------ ");
+        System.out.println(" ---------------------------------------------- ");
     }
 
     public void handleBookStatistics() {
@@ -571,7 +583,21 @@ public class MenuHandler {
         System.out.println("1. Current Requests Signed for This Book : " + details.get(0).intValue());
         System.out.println("2. Borrowing History Count for This Book  : " + details.get(1).intValue());
         System.out.println("3. Average Days per Loan : " + details.get(2));
-        System.out.println(" ------------------------------------------ ");
+        System.out.println(" ------------------------------------------------");
+    }
+
+    public void handleGeneralStudentsStatistics() {
+        System.out.println("\n--- Students Statistics ---");
+
+        List<Integer> details = librarySystem.studentsGeneralStatistics();
+        System.out.print(" All Borrowed Books: " + details.get(0) + "\t");
+        System.out.println(" All Unreturned Books: " + details.get(1));
+        System.out.print(" All Overdue Books: " + details.get(2) + "\t");
+        System.out.println(" All Current Requests: " + details.get(3));
+        System.out.println("\n Statistics Per Person: \n");
+        librarySystem.displayAllStudentStatistics();
+
+
     }
 
     private int getIntInput(int min, int max) {

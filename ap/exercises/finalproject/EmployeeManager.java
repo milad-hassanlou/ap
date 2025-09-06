@@ -1,20 +1,21 @@
 package ap.exercises.finalproject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeManager {
+public class EmployeeManager implements Serializable {
     private final List<Employee> employees;
 
     public EmployeeManager() {
         this.employees = new ArrayList<>();
     }
 
-    public void registerEmployee(String name, String employeeId, String username, String password){
-        if(isUsernameTaken(username)){
+    public void registerEmployee(String name, String employeeId, String username, String password) {
+        if (isUsernameTaken(username)) {
             System.out.println("This username already exists. Please choose a different username.");
-        }else{
-            Employee newEmployee = new Employee(name,employeeId,username,password);
+        } else {
+            Employee newEmployee = new Employee(name, employeeId, username, password);
             employees.add(newEmployee);
             System.out.println("Employee registration completed successfully.");
         }

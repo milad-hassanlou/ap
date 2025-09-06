@@ -1,11 +1,12 @@
 package ap.exercises.finalproject;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class LoanRequestManager {
+public class LoanRequestManager implements Serializable {
     private List<LoanRequest> requests;
 
     public LoanRequestManager() {
@@ -47,5 +48,10 @@ public class LoanRequestManager {
         requests = requests.stream()
                 .filter(r -> !(r.getStartDate().isBefore(yesterday)))
                 .collect(Collectors.toList());
+    }
+
+    public int allCurrenRequestsCount() {
+        renewList();
+        return requests.size();
     }
 }

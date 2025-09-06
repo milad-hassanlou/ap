@@ -1,10 +1,11 @@
 package ap.exercises.finalproject;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoanBookManager {
+public class LoanBookManager implements Serializable {
     private List<LoanBook> loans;
 
     public LoanBookManager() {
@@ -41,10 +42,11 @@ public class LoanBookManager {
                 }
             }
         }
-        System.out.println("\n-- Student General Statistics --");
-        System.out.println("All Borrowed Books: " + allLoansCount);
-        System.out.println("Unreturned Books: " + notReturnedLoansCount);
+        System.out.println();
+        System.out.print("All Borrowed Books: " + allLoansCount + "\t");
+        System.out.print("Unreturned Books: " + notReturnedLoansCount + "\t");
         System.out.println("Overdue Books: " + withDelayLoansCount);
+        System.out.println();
 
     }
 
@@ -92,5 +94,57 @@ public class LoanBookManager {
                 .mapToInt(l -> l.loanDuration())
                 .average()
                 .orElse(0);
+    }
+
+    public int allLoansCount() {
+        return loans.size();
+    }
+
+    public int allUnreturnedLoansCount() {
+        return (int) loans.stream()
+                .filter(l -> !(l.isReturned()))
+                .count();
+    }
+
+    public int allOverdueLoansCount() {
+        return (int) loans.stream()
+                .filter(l -> l.isDelayedInReturning())
+                .count();
+    }
+
+    public void displayTenStudentsWithMostDelay() {
+        List<Student> studentsWithDelay = new ArrayList<>();
+        List<Integer> delayDuration = new ArrayList<>();
+        int index;
+
+        for (LoanBook loan : loans) {
+            if (loan.isDelayedInReturning() && (loan.delayDuration()) > 0) {
+                if ((index = studentsWithDelay.indexOf(loan.getStudent())) == -1) {
+                    studentsWithDelay.add(loan.getStudent());
+                    delayDuration.add(loan.delayDuration());
+                } else {
+                    delayDuration.set(index, delayDuration.get(index) + loan.delayDuration());
+                }
+            }
+        }
+        if (studentsWithDelay.size() == 0) {
+            System.out.println("No students with delay.");
+            return;
+        }
+
+        for (int i = 0; i < Math.min(10, studentsWithDelay.size()); i++) {
+            int maxDelayedIndex = 0;
+            int maxDelay = delayDuration.get(0);
+            for (int j = 1; j < studentsWithDelay.size(); j++) {
+                if (delayDuration.get(j) > maxDelay) {
+                    maxDelay = delayDuration.get(j);
+                    maxDelayedIndex = j;
+                }
+            }
+            System.out.println((i + 1) + ". " + studentsWithDelay.get(maxDelayedIndex) + " | Delay Duration: " + maxDelay);
+            studentsWithDelay.remove(maxDelayedIndex);
+            delayDuration.remove(maxDelayedIndex);
+
+        }
     }
 }

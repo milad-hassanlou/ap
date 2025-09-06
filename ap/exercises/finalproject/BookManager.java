@@ -1,9 +1,10 @@
 package ap.exercises.finalproject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookManager {
+public class BookManager implements Serializable {
     private List<Book> books;
     private LoanBookManager loanBookManager;
 

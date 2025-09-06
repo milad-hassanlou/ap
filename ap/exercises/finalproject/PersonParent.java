@@ -1,6 +1,8 @@
 package ap.exercises.finalproject;
 
-public class PersonParent {
+import java.io.Serializable;
+
+public class PersonParent implements Serializable {
 
     private final String name;
     private final String userId;

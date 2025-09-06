@@ -1,17 +1,20 @@
 package ap.exercises.finalproject;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 // LibrarySystem.java
-public class LibrarySystem {
+public class LibrarySystem implements Serializable {
     private MenuHandler menuHandler;
     private StudentManager studentManager;
     private LoanBookManager loanBookManager;
     private BookManager bookManager;
     private LoanRequestManager loanRequestManager;
     private final EmployeeManager employeeManager;
+    private final Persistence persistence;
 
     public LibrarySystem() {
         this.studentManager = new StudentManager();
@@ -20,6 +23,7 @@ public class LibrarySystem {
         this.bookManager = new BookManager(this.loanBookManager);
         this.loanRequestManager = new LoanRequestManager();
         this.employeeManager = new EmployeeManager();
+        this.persistence = new Persistence();
 
     }
 
@@ -114,6 +118,12 @@ public class LibrarySystem {
         loanBookManager.displayStudentStatistics(student);
     }
 
+    public static void main(String[] args) {
+        LibrarySystem system = new LibrarySystem();
+        system = system.loadOrCreate();
+        system.start();
+    }
+
     public void blockStudent(String id) {
         studentManager.addStudentToBlackList(id);
     }
@@ -142,6 +152,10 @@ public class LibrarySystem {
         return results;
     }
 
+    public void displayAllStudentStatistics() {
+        studentManager.displayStudentStatistics(loanBookManager);
+    }
+
     public List<Double> bookStatistics(String bookId) {
         List<Double> results = new ArrayList<>();
         results.add((double) loanRequestManager.requestCountForBook(bookId));
@@ -151,12 +165,26 @@ public class LibrarySystem {
 
     }
 
+    public List<Integer> studentsGeneralStatistics() {
+        List<Integer> results = new ArrayList<>();
+        results.add(loanBookManager.allLoansCount());
+        results.add(loanBookManager.allUnreturnedLoansCount());
+        results.add(loanBookManager.allOverdueLoansCount());
+        results.add(loanRequestManager.allCurrenRequestsCount());
+        return results;
+    }
+
+    public LibrarySystem loadOrCreate() {
+        LibrarySystem librarySystem = persistence.load();
+        librarySystem.menuHandler.setScanner(new Scanner(System.in));
+        return librarySystem;
+    }
+
     public void start() {
         menuHandler.displayMainMenu();
     }
 
-    public static void main(String[] args) {
-        LibrarySystem system = new LibrarySystem();
-        system.start();
+    public void saveExit() {
+        persistence.save(this);
     }
 }

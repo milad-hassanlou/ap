@@ -1,7 +1,9 @@
 package ap.exercises.finalproject;
 
+import java.io.Serializable;
+
 // Book.java
-public class Book {
+public class Book implements Serializable {
 
     private String bookId;
     private String title;

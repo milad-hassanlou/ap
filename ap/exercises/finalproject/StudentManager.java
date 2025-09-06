@@ -1,9 +1,10 @@
 package ap.exercises.finalproject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentManager {
+public class StudentManager implements Serializable {
     private List<Student> students;
     private final List<Student> blackList;
 
@@ -101,5 +102,17 @@ public class StudentManager {
 
     public int getStudentCount() {
         return students.size();
+    }
+
+    public void displayStudentStatistics(LoanBookManager loanBookManager) {
+        if (students.size() == 0) {
+            System.out.println("There's not a student in list.");
+            return;
+        }
+        students.stream()
+                .forEach(s -> {
+                    System.out.println(s + "  \\|/");
+                    loanBookManager.displayStudentStatistics(s);
+                });
     }
 }
