@@ -111,7 +111,7 @@ public class StudentManager implements Serializable {
         }
         students.stream()
                 .forEach(s -> {
-                    System.out.println(s + "  \\|/");
+                    System.out.println(s + " :::");
                     loanBookManager.displayStudentStatistics(s);
                 });
     }

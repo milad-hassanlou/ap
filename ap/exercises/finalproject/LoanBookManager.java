@@ -42,7 +42,7 @@ public class LoanBookManager implements Serializable {
                 }
             }
         }
-        System.out.println();
+
         System.out.print("All Borrowed Books: " + allLoansCount + "\t");
         System.out.print("Unreturned Books: " + notReturnedLoansCount + "\t");
         System.out.println("Overdue Books: " + withDelayLoansCount);
