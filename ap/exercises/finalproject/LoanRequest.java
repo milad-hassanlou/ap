@@ -37,8 +37,8 @@ public class LoanRequest implements Serializable {
     @Override
     public String toString() {
         return " Student -> " + student
-                + " | Book -> " + book
-                + " | StartDate: " + startDate
+                + " \n Book -> " + book
+                + " \n StartDate: " + startDate
                 + " | EndDate: " + endDate;
     }
 

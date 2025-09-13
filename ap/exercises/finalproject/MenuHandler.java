@@ -247,14 +247,14 @@ public class MenuHandler implements Serializable {
         LocalDate endDate = null;
         try {
             endDate = LocalDate.parse(endPoint);
+            if (endDate.isAfter(LocalDate.now()) && startDate.isAfter(LocalDate.now()) && endDate.isAfter(startDate)) {
+                librarySystem.loanBookRequest(bookId, currentUser, startDate, endDate);
+            } else {
+                System.out.println("Entered dates are not valid!");
+            }
+
         } catch (Exception e) {
             System.out.println("Invalid Input For End Date" + "Error Message: " + e.getMessage());
-        }
-
-        if (endDate.isAfter(LocalDate.now()) && startDate.isAfter(LocalDate.now()) && endDate.isAfter(startDate)) {
-            librarySystem.loanBookRequest(bookId, currentUser, startDate, endDate);
-        } else {
-            System.out.println("Entered dates are not valid!");
         }
     }
 
@@ -596,8 +596,8 @@ public class MenuHandler implements Serializable {
         System.out.println(" All Current Requests: " + details.get(3));
         System.out.println("\n Statistics Per Person: \n");
         librarySystem.displayAllStudentStatistics();
-
-
+        System.out.println("\n Ten Student with Most Dilay: \n");
+        librarySystem.displayTenStudentsWithMostDelay();
     }
 
     private int getIntInput(int min, int max) {

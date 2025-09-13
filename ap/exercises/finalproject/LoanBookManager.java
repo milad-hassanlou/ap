@@ -3,7 +3,9 @@ package ap.exercises.finalproject;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LoanBookManager implements Serializable {
     private List<LoanBook> loans;
@@ -43,8 +45,8 @@ public class LoanBookManager implements Serializable {
             }
         }
 
-        System.out.print("All Borrowed Books: " + allLoansCount + "\t");
-        System.out.print("Unreturned Books: " + notReturnedLoansCount + "\t");
+        System.out.print("All Borrowed Books: " + allLoansCount + "  ");
+        System.out.print("Unreturned Books: " + notReturnedLoansCount + "  ");
         System.out.println("Overdue Books: " + withDelayLoansCount);
         System.out.println();
 
@@ -113,38 +115,26 @@ public class LoanBookManager implements Serializable {
     }
 
     public void displayTenStudentsWithMostDelay() {
-        List<Student> studentsWithDelay = new ArrayList<>();
-        List<Integer> delayDuration = new ArrayList<>();
-        int index;
+        Map<Student, Integer> delayMap = new HashMap<>();
 
         for (LoanBook loan : loans) {
-            if (loan.isDelayedInReturning() && (loan.delayDuration()) > 0) {
-                if ((index = studentsWithDelay.indexOf(loan.getStudent())) == -1) {
-                    studentsWithDelay.add(loan.getStudent());
-                    delayDuration.add(loan.delayDuration());
-                } else {
-                    delayDuration.set(index, delayDuration.get(index) + loan.delayDuration());
-                }
+            if (loan.isDelayedInReturning() && loan.delayDuration() > 0) {
+                delayMap.merge(
+                        loan.getStudent(),
+                        loan.delayDuration(),
+                        Integer::sum
+                );
             }
         }
-        if (studentsWithDelay.size() == 0) {
+
+        if (delayMap.isEmpty()) {
             System.out.println("No students with delay.");
             return;
         }
 
-        for (int i = 0; i < Math.min(10, studentsWithDelay.size()); i++) {
-            int maxDelayedIndex = 0;
-            int maxDelay = delayDuration.get(0);
-            for (int j = 1; j < studentsWithDelay.size(); j++) {
-                if (delayDuration.get(j) > maxDelay) {
-                    maxDelay = delayDuration.get(j);
-                    maxDelayedIndex = j;
-                }
-            }
-            System.out.println((i + 1) + ". " + studentsWithDelay.get(maxDelayedIndex) + " | Delay Duration: " + maxDelay);
-            studentsWithDelay.remove(maxDelayedIndex);
-            delayDuration.remove(maxDelayedIndex);
-
-        }
+        delayMap.entrySet().stream()
+                .sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue()))
+                .limit(10)
+                .forEachOrdered(e -> System.out.println(e.getKey() + " | Delay Duration: " + e.getValue()));
     }
 }

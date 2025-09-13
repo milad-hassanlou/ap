@@ -2,15 +2,16 @@ package ap.exercises.finalproject;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.stream.Collectors;
 
 public class LoanRequestManager implements Serializable {
-    private List<LoanRequest> requests;
+    private Queue<LoanRequest> requests;
 
     public LoanRequestManager() {
-        this.requests = new ArrayList<>();
+        this.requests = new LinkedList<>();
     }
 
     public void addLoanRequest(Book book, Student student, LocalDate startDate, LocalDate endDate) {
@@ -47,7 +48,7 @@ public class LoanRequestManager implements Serializable {
         LocalDate yesterday = LocalDate.now().minusDays(1);
         requests = requests.stream()
                 .filter(r -> !(r.getStartDate().isBefore(yesterday)))
-                .collect(Collectors.toList());
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
     public int allCurrenRequestsCount() {

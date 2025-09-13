@@ -155,6 +155,9 @@ public class LibrarySystem implements Serializable {
     public void displayAllStudentStatistics() {
         studentManager.displayStudentStatistics(loanBookManager);
     }
+    public void displayTenStudentsWithMostDelay(){
+        loanBookManager.displayTenStudentsWithMostDelay();
+    }
 
     public List<Double> bookStatistics(String bookId) {
         List<Double> results = new ArrayList<>();
